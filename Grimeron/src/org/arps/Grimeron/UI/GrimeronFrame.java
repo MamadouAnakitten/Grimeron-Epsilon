@@ -6,8 +6,10 @@
 package org.arps.Grimeron.UI;
 
 import java.awt.event.KeyEvent;
+import javax.swing.DefaultListModel;
 import javax.swing.JTabbedPane;
 import org.arps.Grimeron.Grimeron;
+import org.arps.Grimeron.Move;
 import org.arps.Grimeron.console.Console;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.utils.StatisticSet;
@@ -24,6 +26,9 @@ public class GrimeronFrame extends javax.swing.JFrame {
     private StatisticSet stats;
     private Grimeron game;
     private Console console;
+    
+    private DefaultListModel playerListModel = new DefaultListModel();
+    private DefaultListModel moveListModel = new DefaultListModel();
     
     private volatile boolean restart = false;
     private volatile boolean waitingForRestart = true;
@@ -95,16 +100,14 @@ public class GrimeronFrame extends javax.swing.JFrame {
         selectAPlayerPanel = new javax.swing.JPanel();
         text_selectPlayer = new javax.swing.JLabel();
         playerSelectorScrollPane = new javax.swing.JScrollPane();
-        Player[] playerArray = new Player[stats.getPlayerList().size()];
-        playerArray = stats.getPlayerList().toArray(playerArray);
-        playerSelector = new javax.swing.JList(playerArray);
+        playerSelector = new javax.swing.JList(playerListModel);
         text_playerWC = new javax.swing.JLabel();
         playerWinCount = new javax.swing.JLabel();
         text_averagePlace = new javax.swing.JLabel();
         averagePlace = new javax.swing.JLabel();
         playerMoveInfoPanel = new javax.swing.JPanel();
         moveStatScrollPane = new javax.swing.JScrollPane();
-        playerMoveSelector = new javax.swing.JList();
+        playerMoveSelector = new javax.swing.JList(moveListModel);
         moveInfoText = new javax.swing.JLabel();
         text_avgLifespan = new javax.swing.JLabel();
         averageLifspan = new javax.swing.JLabel();
@@ -133,6 +136,11 @@ public class GrimeronFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 31, 57));
         setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -156,6 +164,12 @@ public class GrimeronFrame extends javax.swing.JFrame {
         );
 
         mainTabbedPanel.addTab("Active Game", activeGamePAnel);
+
+        gameStats.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                gameStatsStateChanged(evt);
+            }
+        });
 
         text_selectPlayer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         text_selectPlayer.setText("Select a player!");
@@ -441,10 +455,51 @@ public class GrimeronFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_consoleInputFieldKeyPressed
 
     private void playerSelectorValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerSelectorValueChanged
-        //updatePlayerstat();
+        try
+        {
+            Player selectedPlayer = (Player)playerSelector.getSelectedValue();
+            
+            moveListModel.removeAllElements();
+            
+            for(Move move: selectedPlayer.getMoveHistory())
+            {
+                moveListModel.addElement(move);
+            }
+        } catch(ClassCastException ex) {
+            
+        } catch(NullPointerException ex) {
+            
+        }
+        
+        this.repaint();
         System.out.println("Player selection event occured.");
     }//GEN-LAST:event_playerSelectorValueChanged
 
+    private void gameStatsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gameStatsStateChanged
+        updateGameStats();
+        updateOverallStats();
+    }//GEN-LAST:event_gameStatsStateChanged
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        repaint();
+    }//GEN-LAST:event_formMouseEntered
+
+    private void updateGameStats()
+    {
+        playerListModel.removeAllElements();
+        
+        for(Player player: game.getRuleSet().getPlayers())
+        {
+            playerListModel.addElement(player);
+        } 
+        repaint();
+    }
+    
+    private void updateOverallStats()
+    {
+        
+    }
+    
     public void updateConsole(){
         consoleOutputField.setText(console.getOutput());
     }

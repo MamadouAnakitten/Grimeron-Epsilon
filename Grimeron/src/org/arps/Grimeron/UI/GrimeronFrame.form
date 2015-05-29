@@ -33,6 +33,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseEntered"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -182,6 +185,9 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JTabbedPane" name="gameStats">
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="gameStatsStateChanged"/>
+              </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -310,8 +316,7 @@
                                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="playerSelectorValueChanged"/>
                                   </Events>
                                   <AuxValues>
-                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList(playerArray)"/>
-                                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Player[] playerArray = new Player[stats.getPlayerList().size()];&#xa;playerArray = stats.getPlayerList().toArray(playerArray);"/>
+                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList(playerListModel)"/>
                                   </AuxValues>
                                 </Component>
                               </SubComponents>
@@ -403,6 +408,9 @@
                                           <StringArray count="0"/>
                                         </Property>
                                       </Properties>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList(moveListModel)"/>
+                                      </AuxValues>
                                     </Component>
                                   </SubComponents>
                                 </Container>
