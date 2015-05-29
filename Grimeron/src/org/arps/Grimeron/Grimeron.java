@@ -238,6 +238,11 @@ public class Grimeron{
                     updateGraphics(lastMove);
                 }
                 
+                if(ruleSet.statisticMode)
+                {
+                    gameFrame.updateStatistics(this);
+                }
+                
                 try 
                 {
                     if(!ruleSet.rapidMode || ruleSet.rapidGraphicOverrideEnabled)

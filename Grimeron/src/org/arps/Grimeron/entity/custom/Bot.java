@@ -87,7 +87,8 @@ public class Bot extends Player{
         
         //Start the move decision process.
         if(potentialNextMoves.isEmpty())
-        {    
+        {   
+            System.out.println("Bot died on round " + turn + ".");
             this.kill();
         }
         else

@@ -476,14 +476,14 @@ public class GrimeronFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_playerSelectorValueChanged
 
     private void gameStatsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gameStatsStateChanged
-        updateGameStats();
-        updateOverallStats();
+        updateStatistics(game);
     }//GEN-LAST:event_gameStatsStateChanged
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         repaint();
     }//GEN-LAST:event_formMouseEntered
 
+    
     private void updateGameStats()
     {
         playerListModel.removeAllElements();
@@ -522,6 +522,8 @@ public class GrimeronFrame extends javax.swing.JFrame {
     
     public void updateStatistics(Grimeron game){
         stats.updateStatistics(game);
+        updateGameStats();
+        updateOverallStats();
         repaint();
     }
     

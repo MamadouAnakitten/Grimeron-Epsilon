@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 import org.arps.Grimeron.entity.Tile;
 
@@ -21,11 +20,11 @@ public class UITile extends JPanel implements MouseListener{
     
     public Tile tile;
 
-    public UITile(Tile tile){
+    public UITile(Tile tile, GrimeronGrid grid){
         this.tile = tile;
         this.addMouseListener(this);
-        this.setPreferredSize(new Dimension(50, 50));
-        this.setSize(50, 50);
+        this.setPreferredSize(new Dimension(550/grid.getMaxX(), 550/grid.getMaxY()));
+        this.setSize(550/grid.getMaxX(), 550/grid.getMaxY());
     }
     
     @Override

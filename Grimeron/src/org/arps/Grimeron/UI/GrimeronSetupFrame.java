@@ -64,8 +64,8 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         graphicOverrideEnabled = new javax.swing.JCheckBox();
         incognitoCheckBox = new javax.swing.JCheckBox();
         statisticModeSelection = new javax.swing.JCheckBox();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
+        gridDimensionField = new javax.swing.JFormattedTextField();
+        gridDimensionText = new javax.swing.JLabel();
         text_player_settings = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         text_player_hide = new javax.swing.JLabel();
@@ -125,11 +125,11 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         statisticModeSelection.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         statisticModeSelection.setText("Statistic Mode: (Requires Rapid Mode) Generates statistics chart alongside simulated games.");
 
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextField1.setText("11");
+        gridDimensionField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        gridDimensionField.setText("11");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Grid Dimension");
+        gridDimensionText.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        gridDimensionText.setText("Grid Dimension");
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
         generalPanel.setLayout(generalPanelLayout);
@@ -147,9 +147,9 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                     .addComponent(incognitoCheckBox)
                     .addComponent(statisticModeSelection)
                     .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(gridDimensionText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         generalPanelLayout.setVerticalGroup(
@@ -166,8 +166,8 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                 .addComponent(statisticModeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gridDimensionText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         generalPanel.setLayer(rapidCheckbox, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -175,8 +175,8 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         generalPanel.setLayer(graphicOverrideEnabled, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(incognitoCheckBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(statisticModeSelection, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(jFormattedTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(gridDimensionField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(gridDimensionText, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         text_player_settings.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         text_player_settings.setText("Player Settings");
@@ -334,7 +334,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         );
         advancedPanelLayout.setVerticalGroup(
             advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
+            .addGap(0, 134, Short.MAX_VALUE)
         );
 
         submitButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -413,10 +413,10 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(advancedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(advancedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -533,9 +533,9 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
     private javax.swing.JTextField gameCountInput;
     private javax.swing.JLayeredPane generalPanel;
     private javax.swing.JCheckBox graphicOverrideEnabled;
+    private javax.swing.JFormattedTextField gridDimensionField;
+    private javax.swing.JLabel gridDimensionText;
     private javax.swing.JCheckBox incognitoCheckBox;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
