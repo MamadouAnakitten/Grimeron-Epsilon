@@ -30,6 +30,8 @@ public class Tile{
     private final int gameX;
     private final int gameY;
     
+    public double weight = (Player.Place.NONE.getWeight() + Player.Place.FIRST.getWeight()) / 2;
+    
     private Color color;
     
     private boolean wasSelected = false;

@@ -49,7 +49,7 @@ public class Grimeron{
     {        
         console = new Console(this);
         serverProperties = new Properties();
-        serverProperties.put("url", "jdbc:derby://24.34.192.66:1527/GRIMERON_MAIN");
+        serverProperties.put("url", "jdbc:derby://localhost:1527/grimeron_main");
         serverProperties.put("user", "grimeron");
         serverProperties.put("pass", "dankmeme69");
         
