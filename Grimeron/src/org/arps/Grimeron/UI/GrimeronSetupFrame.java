@@ -488,6 +488,9 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         {
             Player selectedPlayer = (Player)registeredPlayerCombo.getSelectedItem();
             
+            selectedPlayer.getTile().setState(Tile.State.OPEN);
+            selectedPlayer.getStartingTile().setState(Tile.State.OPEN);
+            
             GrimeronPlayerCreator newPlayerCreator = new GrimeronPlayerCreator(game, this);
             newPlayerCreator.setVisible(true);
             
@@ -572,7 +575,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
     }
     
     private void verify()
-    {
+    {       
         if(ruleSet.getPlayers().size() == 1)
         {
             Bot a = new Bot(grid.getBottomRight(), "Red", dbHandler, grid);
