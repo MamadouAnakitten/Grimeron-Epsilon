@@ -43,7 +43,7 @@ public class DBConnector {
     }
 
     /** Uses DriverManager.  */
-    Connection getSimpleConnection() {
+    public Connection getSimpleConnection() {
         //See your driver documentation for the proper format of this string :
         String DB_CONN_STRING = "jdbc:mysql://localhost:3306/airplanes";
         //Provided by your driver documentation. In this case, a MySql driver is used : 
