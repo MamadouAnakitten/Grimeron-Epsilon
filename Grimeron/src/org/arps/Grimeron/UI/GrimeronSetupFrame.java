@@ -514,6 +514,11 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         try{
+            Player selectedPlayer = (Player)registeredPlayerCombo.getSelectedItem();
+            
+            selectedPlayer.getTile().setState(Tile.State.OPEN);
+            selectedPlayer.getStartingTile().setState(Tile.State.OPEN);
+            
             ruleSet.getPlayers().remove((Player)registeredPlayerCombo.getSelectedItem());        
             registeredPlayerCombo.removeItem(registeredPlayerCombo.getSelectedItem());
             
