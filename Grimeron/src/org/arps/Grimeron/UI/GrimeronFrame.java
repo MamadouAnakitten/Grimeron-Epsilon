@@ -111,7 +111,8 @@ public class GrimeronFrame extends javax.swing.JFrame {
         moveInfoText = new javax.swing.JLabel();
         text_avgLifespan = new javax.swing.JLabel();
         averageLifspan = new javax.swing.JLabel();
-        overallPanel = new javax.swing.JPanel();
+        gameInfoPAnel = new javax.swing.JPanel();
+        dankabaseStatsPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         text_restart = new javax.swing.JLabel();
@@ -135,7 +136,6 @@ public class GrimeronFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 31, 57));
-        setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 formMouseEntered(evt);
@@ -152,14 +152,14 @@ public class GrimeronFrame extends javax.swing.JFrame {
             activeGamePAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(activeGamePAnelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(grimeronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(grimeronPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         activeGamePAnelLayout.setVerticalGroup(
             activeGamePAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(activeGamePAnelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(grimeronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(grimeronPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -220,7 +220,7 @@ public class GrimeronFrame extends javax.swing.JFrame {
             playerMoveInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(playerMoveInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(moveStatScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addComponent(moveStatScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(moveInfoText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -281,6 +281,19 @@ public class GrimeronFrame extends javax.swing.JFrame {
 
         playerInfoPane.addTab("Player Info", selectAPlayerPanel);
 
+        javax.swing.GroupLayout gameInfoPAnelLayout = new javax.swing.GroupLayout(gameInfoPAnel);
+        gameInfoPAnel.setLayout(gameInfoPAnelLayout);
+        gameInfoPAnelLayout.setHorizontalGroup(
+            gameInfoPAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 573, Short.MAX_VALUE)
+        );
+        gameInfoPAnelLayout.setVerticalGroup(
+            gameInfoPAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 575, Short.MAX_VALUE)
+        );
+
+        playerInfoPane.addTab("Game Info", gameInfoPAnel);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -300,18 +313,18 @@ public class GrimeronFrame extends javax.swing.JFrame {
 
         gameStats.addTab("Game Stats", jPanel2);
 
-        javax.swing.GroupLayout overallPanelLayout = new javax.swing.GroupLayout(overallPanel);
-        overallPanel.setLayout(overallPanelLayout);
-        overallPanelLayout.setHorizontalGroup(
-            overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 629, Short.MAX_VALUE)
+        javax.swing.GroupLayout dankabaseStatsPanelLayout = new javax.swing.GroupLayout(dankabaseStatsPanel);
+        dankabaseStatsPanel.setLayout(dankabaseStatsPanelLayout);
+        dankabaseStatsPanelLayout.setHorizontalGroup(
+            dankabaseStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 602, Short.MAX_VALUE)
         );
-        overallPanelLayout.setVerticalGroup(
-            overallPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+        dankabaseStatsPanelLayout.setVerticalGroup(
+            dankabaseStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 631, Short.MAX_VALUE)
         );
 
-        gameStats.addTab("Overall Stats", overallPanel);
+        gameStats.addTab("Dankabase Stats", dankabaseStatsPanel);
 
         javax.swing.GroupLayout statisticPanelLayout = new javax.swing.GroupLayout(statisticPanel);
         statisticPanel.setLayout(statisticPanelLayout);
@@ -373,34 +386,32 @@ public class GrimeronFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mainTabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(text_restart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(32, 32, 32)
-                .addComponent(clickableYes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mainTabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(clickableNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(256, 256, 256))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(631, 631, 631)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(consoleInputField)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.CENTER))
-                .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(text_restart)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(clickableYes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(clickableNo, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator2)
+                            .addComponent(jSeparator3)
+                            .addComponent(consoleInputField)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -411,13 +422,10 @@ public class GrimeronFrame extends javax.swing.JFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consoleInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
-                .addGap(22, 22, 22))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(mainTabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(mainTabbedPanel)
         );
 
         pack();
@@ -454,34 +462,34 @@ public class GrimeronFrame extends javax.swing.JFrame {
         consoleOutputField.setText(console.getOutput());
     }//GEN-LAST:event_consoleInputFieldKeyPressed
 
-    private void playerSelectorValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerSelectorValueChanged
-        try
-        {
-            Player selectedPlayer = (Player)playerSelector.getSelectedValue();
-            
-            moveListModel.removeAllElements();
-            
-            for(Move move: selectedPlayer.getMoveHistory())
-            {
-                moveListModel.addElement(move);
-            }
-        } catch(ClassCastException ex) {
-            
-        } catch(NullPointerException ex) {
-            
-        }
-        
-        this.repaint();
-        System.out.println("Player selection event occured.");
-    }//GEN-LAST:event_playerSelectorValueChanged
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        repaint();
+    }//GEN-LAST:event_formMouseEntered
 
     private void gameStatsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gameStatsStateChanged
         updateStatistics(game);
     }//GEN-LAST:event_gameStatsStateChanged
 
-    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        repaint();
-    }//GEN-LAST:event_formMouseEntered
+    private void playerSelectorValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerSelectorValueChanged
+        try
+        {
+            Player selectedPlayer = (Player)playerSelector.getSelectedValue();
+
+            moveListModel.removeAllElements();
+
+            for(Move move: selectedPlayer.getMoveHistory())
+            {
+                moveListModel.addElement(move);
+            }
+        } catch(ClassCastException ex) {
+
+        } catch(NullPointerException ex) {
+
+        }
+
+        this.repaint();
+        System.out.println("Player selection event occured.");
+    }//GEN-LAST:event_playerSelectorValueChanged
 
     
     private void updateGameStats()
@@ -535,6 +543,8 @@ public class GrimeronFrame extends javax.swing.JFrame {
     public javax.swing.JLabel clickableYes;
     private javax.swing.JFormattedTextField consoleInputField;
     private javax.swing.JEditorPane consoleOutputField;
+    private javax.swing.JPanel dankabaseStatsPanel;
+    private javax.swing.JPanel gameInfoPAnel;
     private javax.swing.JTabbedPane gameStats;
     private org.arps.Grimeron.UI.GrimeronPanel grimeronPanel;
     private javax.swing.JLabel jLabel1;
@@ -548,7 +558,6 @@ public class GrimeronFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane mainTabbedPanel;
     private javax.swing.JLabel moveInfoText;
     private javax.swing.JScrollPane moveStatScrollPane;
-    private javax.swing.JPanel overallPanel;
     private javax.swing.JTabbedPane playerInfoPane;
     private javax.swing.JPanel playerMoveInfoPanel;
     private javax.swing.JList playerMoveSelector;
