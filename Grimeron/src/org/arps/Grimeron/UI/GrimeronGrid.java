@@ -33,8 +33,8 @@ public class GrimeronGrid extends JPanel {
      * Creates new form GameGrid
      */
     public GrimeronGrid() {
-        this.maxX = 11;
-        this.maxY = 11;
+        this.maxX = 5;
+        this.maxY = 50;
         initComponents();
     }
     
@@ -61,7 +61,7 @@ public class GrimeronGrid extends JPanel {
                 
                 Tile newTile = new Tile(x, y);
                 
-                UITile tilePanel = new UITile(newTile);
+                UITile tilePanel = new UITile(newTile, this);
                 
                 newTile.setUITile(tilePanel);
                 
