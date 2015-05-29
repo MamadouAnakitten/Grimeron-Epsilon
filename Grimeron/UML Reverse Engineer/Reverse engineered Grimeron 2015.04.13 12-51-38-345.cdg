@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Reverse engineered Grimeron 2015.04.13 12-51-38-345">
+  <ClassDiagramComponents>
+    <Class xPosition="20.0" yPosition="20.0" package="org.arps.Grimeron.entity" isAbstract="true" name="Player" visibility="public">
+      <Constructors>
+        <Constructor name="Player" visibility="public">
+          <Argument type="Type" name="type"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="place" visibility="private" type="Place"/>
+        <Field name="type" visibility="private" type="Type"/>
+        <Field name="tile" visibility="private" type="Tile"/>
+        <Field name="existant" visibility="private" type="boolean"/>
+      </Fields>
+      <Methods>
+        <Method name="getType" visibility="public" returnType="Type"/>
+        <Method name="getTile" visibility="public" returnType="Tile"/>
+        <Method name="isExistant" visibility="public" returnType="boolean"/>
+        <Method name="move" visibility="public" returnType="void">
+          <Argument type="Tile" name="tile"/>
+        </Method>
+        <Method name="kill" visibility="public" returnType="void"/>
+        <Method name="setPlace" visibility="public" returnType="void">
+          <Argument type="Place" name="place"/>
+        </Method>
+        <Method name="getPlace" visibility="public" returnType="Place"/>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="20.0" package="org.arps.Grimeron.entity" name="Bot" visibility="public">
+      <Constructors>
+        <Constructor name="Bot" visibility="public"/>
+      </Constructors>
+      <Fields/>
+      <Methods>
+        <Method name="move" visibility="public" returnType="void"/>
+      </Methods>
+    </Class>
+    <Class xPosition="620.0" yPosition="20.0" package="org.arps.Grimeron.entity" name="Human" visibility="public">
+      <Constructors>
+        <Constructor name="Human" visibility="public"/>
+      </Constructors>
+      <Fields/>
+      <Methods>
+        <Method name="move" visibility="public" returnType="void"/>
+      </Methods>
+    </Class>
+    <Class xPosition="920.0" yPosition="20.0" package="org.arps.Grimeron.UI" name="GrimeronGrid" visibility="public">
+      <Constructors>
+        <Constructor name="GrimeronGrid" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="rows" visibility="private" type="int"/>
+        <Field name="columns" visibility="private" type="int"/>
+        <Field name="playerList" visibility="private" type="ArrayList&lt;Player&gt;"/>
+        <Field name="pieces" visibility="private" type="ArrayList&lt;Tile&gt;"/>
+        <Field name="playerToImage" visibility="private" type="HashMap&lt;Player, Image&gt;"/>
+        <Field name="blueBot" visibility="public" type="BufferedImage"/>
+        <Field name="greenBot" visibility="public" type="BufferedImage"/>
+        <Field name="redBot" visibility="public" type="BufferedImage"/>
+        <Field name="yellowBot" visibility="public" type="BufferedImage"/>
+        <Field name="poisonTile" visibility="public" type="BufferedImage"/>
+        <Field name="playerTile" visibility="public" type="BufferedImage"/>
+      </Fields>
+      <Methods>
+        <Method name="initComponents" visibility="private" returnType="void"/>
+        <Method name="assignPlayers" visibility="public" returnType="void">
+          <Argument type="Player" name="players"/>
+        </Method>
+        <Method name="assignSprites" visibility="private" returnType="void"/>
+        <Method name="getPieces" visibility="public" returnType="ArrayList&lt;Tile&gt;"/>
+        <Method name="setPieces" visibility="public" returnType="void">
+          <Argument type="ArrayList&lt;Tile&gt;" name="pieces"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="20.0" yPosition="420.0" package="org.arps.Grimeron.UI" name="Tile" visibility="public">
+      <Constructors>
+        <Constructor name="Tile" visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="state" visibility="private" type="State"/>
+        <Field name="x" visibility="private" type="int"/>
+        <Field name="y" visibility="private" type="int"/>
+      </Fields>
+      <Methods>
+        <Method name="getGameX" visibility="public" returnType="int"/>
+        <Method name="getGameY" visibility="public" returnType="int"/>
+        <Method name="setX" visibility="public" returnType="void">
+          <Argument type="int" name="newX"/>
+        </Method>
+        <Method name="setY" visibility="public" returnType="void">
+          <Argument type="int" name="newY"/>
+        </Method>
+        <Method name="getState" visibility="public" returnType="State"/>
+        <Method name="setState" visibility="public" returnType="void">
+          <Argument type="State" name="newState"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="420.0" package="org.arps.Grimeron.UI" name="Player" visibility="public">
+      <Constructors/>
+      <Fields/>
+      <Methods/>
+    </Class>
+    <Class xPosition="620.0" yPosition="420.0" package="org.arps.Grimeron.UI" name="GrimeronBetaFrame" visibility="public">
+      <Constructors>
+        <Constructor name="GrimeronBetaFrame" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="controlToggle" visibility="private" type="javax.swing.JToggleButton"/>
+        <Field name="grimeronGrid" visibility="public" type="org.arps.Grimeron.UI.GrimeronGrid"/>
+        <Field name="jDialog1" visibility="private" type="javax.swing.JDialog"/>
+        <Field name="jLabel1" visibility="private" type="javax.swing.JLabel"/>
+        <Field name="jPanel2" visibility="private" type="javax.swing.JPanel"/>
+      </Fields>
+      <Methods>
+        <Method name="initComponents" visibility="private" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void"/>
+        <Method name="main" visibility="public" returnType="void" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class xPosition="920.0" yPosition="420.0" package="org.arps.Grimeron.UI" name="GameSetupFrame" visibility="public">
+      <Constructors>
+        <Constructor name="GameSetupFrame" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="isSetup" visibility="private" type="boolean"/>
+        <Field name="settings" visibility="private" type="GameSettings"/>
+        <Field name="gameCountInput" visibility="private" type="javax.swing.JTextField"/>
+        <Field name="incognitoCheckBox" visibility="private" type="javax.swing.JCheckBox"/>
+        <Field name="jLabel1" visibility="private" type="javax.swing.JLabel"/>
+        <Field name="jLabel2" visibility="private" type="javax.swing.JLabel"/>
+        <Field name="jLabel3" visibility="private" type="javax.swing.JLabel"/>
+        <Field name="jPanel1" visibility="private" type="javax.swing.JPanel"/>
+        <Field name="modeSelector" visibility="private" type="javax.swing.JComboBox"/>
+        <Field name="rapidCheckbox" visibility="private" type="javax.swing.JCheckBox"/>
+        <Field name="statisticModeSelection" visibility="private" type="javax.swing.JCheckBox"/>
+        <Field name="submitGameSetupBtn" visibility="private" type="javax.swing.JButton"/>
+      </Fields>
+      <Methods>
+        <Method name="initComponents" visibility="private" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void"/>
+        <Method name="statisticModeSelectionActionPerformed" visibility="private" returnType="void">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="incognitoCheckBoxActionPerformed" visibility="private" returnType="void">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="submitGameSetupBtnActionPerformed" visibility="private" returnType="void">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="rapidCheckboxActionPerformed" visibility="private" returnType="void">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="modeSelectorActionPerformed" visibility="private" returnType="void">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" visibility="public" returnType="void" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+        <Method name="isSetUp" visibility="public" returnType="boolean"/>
+        <Method name="getSettings" visibility="public" returnType="GameSettings"/>
+      </Methods>
+    </Class>
+    <Class xPosition="20.0" yPosition="820.0" package="org.arps.Grimeron" name="Grimeron" visibility="public">
+      <Constructors>
+        <Constructor name="Grimeron" visibility="public"/>
+      </Constructors>
+      <Fields>
+        <Field name="pieces" visibility="private" type="ArrayList&lt;Tile&gt;"/>
+        <Field name="grid" visibility="private" type="GrimeronGrid"/>
+        <Field name="frame" visibility="private" type="GrimeronBetaFrame"/>
+      </Fields>
+      <Methods>
+        <Method name="main" visibility="public" returnType="void" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="enterSetup" visibility="private" returnType="void"/>
+      </Methods>
+    </Class>
+    <Class xPosition="320.0" yPosition="820.0" package="org.arps.Grimeron" name="Move" visibility="public">
+      <Constructors>
+        <Constructor name="Move" visibility="public">
+          <Argument type="Tile" name="fromTile"/>
+          <Argument type="Tile" name="toTile"/>
+          <Argument type="int" name="turnOfOccurance"/>
+        </Constructor>
+        <Constructor name="Move" visibility="public">
+          <Argument type="Tile" name="fromTile"/>
+          <Argument type="Direction" name="direction"/>
+          <Argument type="int" name="turnOfOccurance"/>
+        </Constructor>
+      </Constructors>
+      <Fields>
+        <Field name="fromTile" visibility="public" type="Tile"/>
+        <Field name="toTile" visibility="public" type="Tile"/>
+        <Field name="direction" visibility="public" type="Direction"/>
+        <Field name="turnOfOccurance" visibility="public" type="int"/>
+      </Fields>
+      <Methods/>
+    </Class>
+    <Class xPosition="620.0" yPosition="820.0" package="org.arps.Grimeron" name="GameSettings" visibility="public">
+      <Constructors/>
+      <Fields>
+        <Field name="incognitoMode" visibility="public" type="boolean"/>
+        <Field name="statisticMode" visibility="public" type="boolean"/>
+        <Field name="rapidMode" visibility="public" type="boolean"/>
+        <Field name="game" visibility="public" type="GameType"/>
+      </Fields>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="GameSetupFrame" target="GameSettings" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="playerList" source="GrimeronGrid" target="Player" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="playerToImage" source="GrimeronGrid" target="Player" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <IsRelation name="is" source="Bot" target="Player"/>
+    <HasRelation name="fromTile" source="Move" target="Tile" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="toTile" source="Move" target="Tile" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GrimeronGrid" target="Player" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="grimeronGrid" source="GrimeronBetaFrame" target="Grimeron" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Player" target="Tile" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="GrimeronGrid" target="Tile" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Human" target="Player"/>
+    <HasRelation name="pieces" source="GrimeronGrid" target="Tile" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="settings" source="GameSetupFrame" target="GameSettings" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="grid" source="Grimeron" target="Grimeron" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="frame" source="Grimeron" target="Grimeron" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="pieces" source="Grimeron" target="Tile" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="tile" source="Player" target="Tile" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
