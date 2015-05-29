@@ -49,7 +49,7 @@ public class Human extends Player{
                 if(Math.abs(xDif) <= 1 && Math.abs(yDif) <= 1){
                     
                     //If the player killed themselves.
-                    if(selectedTile.getState().equals(Tile.State.DEAD)){
+                    if(grid.getLiveTilesSurrounding(this.getTile()).isEmpty()){
                         this.kill();
                     }
                     
