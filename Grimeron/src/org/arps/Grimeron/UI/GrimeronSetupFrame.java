@@ -6,6 +6,7 @@
 package org.arps.Grimeron.UI;
 
 import java.awt.Color;
+import java.sql.Connection;
 import java.util.Iterator;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.entity.Tile;
 import org.arps.Grimeron.entity.custom.Bot;
 import org.arps.Grimeron.entity.custom.Human;
+import org.arps.Grimeron.utils.DBConnector;
 import org.arps.Grimeron.utils.DBOperationHandler;
 import org.arps.Grimeron.utils.RuleSet;
 
@@ -53,6 +55,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         setupText = new javax.swing.JLabel();
         text_generalsettings = new javax.swing.JLabel();
         text_general_hide = new javax.swing.JLabel();
@@ -66,6 +69,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         statisticModeSelection = new javax.swing.JCheckBox();
         gridDimensionField = new javax.swing.JFormattedTextField();
         gridDimensionText = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
         text_player_settings = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         text_player_hide = new javax.swing.JLabel();
@@ -87,7 +91,25 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         text_advanced_hide = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         advancedPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        urlField = new javax.swing.JFormattedTextField();
+        portField = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        usernameField = new javax.swing.JFormattedTextField();
+        driverSelector = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        nameField = new javax.swing.JFormattedTextField();
+        useConnection = new javax.swing.JCheckBox();
+        testDBBtn = new javax.swing.JButton();
+        text_teststatus = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
         submitButton = new javax.swing.JButton();
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setText("Database Port");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,6 +133,11 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
 
         rapidCheckbox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rapidCheckbox.setText("Enable Rapid Mode");
+        rapidCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rapidCheckboxActionPerformed(evt);
+            }
+        });
 
         gameCountInput.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gameCountInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -118,12 +145,27 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
 
         graphicOverrideEnabled.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         graphicOverrideEnabled.setText("Enable Rapid Graphics Override (Show Graphics)");
+        graphicOverrideEnabled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicOverrideEnabledActionPerformed(evt);
+            }
+        });
 
         incognitoCheckBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         incognitoCheckBox.setText("Incognito Mode: Disables database learning and keeps AI knowledge constant.");
+        incognitoCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incognitoCheckBoxActionPerformed(evt);
+            }
+        });
 
         statisticModeSelection.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         statisticModeSelection.setText("Statistic Mode: (Requires Rapid Mode) Generates statistics chart alongside simulated games.");
+        statisticModeSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statisticModeSelectionActionPerformed(evt);
+            }
+        });
 
         gridDimensionField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         gridDimensionField.setText("11");
@@ -151,6 +193,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         generalPanelLayout.setVerticalGroup(
             generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,14 +201,16 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(rapidCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gameCountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(graphicOverrideEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(graphicOverrideEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gameCountInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(incognitoCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statisticModeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(gridDimensionText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -177,6 +222,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         generalPanel.setLayer(statisticModeSelection, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(gridDimensionField, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(gridDimensionText, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(jSeparator7, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         text_player_settings.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         text_player_settings.setText("Player Settings");
@@ -189,7 +235,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
             }
         });
 
-        playerCreationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Player Creator", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        playerCreationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Player Creator", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(0, 51, 51))); // NOI18N
 
         registeredPlayerCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         registeredPlayerCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Empty", " " }));
@@ -326,15 +372,115 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
 
         advancedPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setText("Database URL");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setText("DB Driver");
+
+        urlField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        urlField.setText("URL");
+
+        portField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        portField.setText("3306");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel4.setText("DB Username");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel5.setText("DB Password");
+
+        usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernameField.setText("Grimeron");
+
+        driverSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "JDBC / JNDI", "Derby" }));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel6.setText("Database Name");
+
+        nameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nameField.setText("Name");
+
+        useConnection.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        useConnection.setText("Use this Connection");
+
+        testDBBtn.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        testDBBtn.setText("Test Connection");
+        testDBBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testDBBtnActionPerformed(evt);
+            }
+        });
+
+        text_teststatus.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_teststatus.setForeground(new java.awt.Color(255, 51, 51));
+        text_teststatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        text_teststatus.setText("Status: No Connection");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel8.setText("Database Port");
+
         javax.swing.GroupLayout advancedPanelLayout = new javax.swing.GroupLayout(advancedPanel);
         advancedPanel.setLayout(advancedPanelLayout);
         advancedPanelLayout.setHorizontalGroup(
             advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(advancedPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(portField)
+                    .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                    .addComponent(urlField))
+                .addGap(18, 18, 18)
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(advancedPanelLayout.createSequentialGroup()
+                        .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(driverSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(passwordField)))
+                    .addGroup(advancedPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(useConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(testDBBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(text_teststatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         advancedPanelLayout.setVerticalGroup(
             advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
+            .addGroup(advancedPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(urlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(useConnection))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(testDBBtn)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(driverSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(text_teststatus))
+                .addGap(16, 16, 16))
         );
 
         submitButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -395,7 +541,7 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -414,8 +560,8 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(advancedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -509,6 +655,8 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         if(rapidCheckbox.isSelected())
         {
+
+
             if(graphicOverrideEnabled.isSelected())
             {
                 ruleSet.rapidGraphicOverrideEnabled = true;
@@ -522,13 +670,62 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
             ruleSet.rapidModeCount = Math.abs(rapidModeCount);
         }
         verify();
+        try
+        {
+            //int dimension = Integer.parseInt(gridDimensionField.getText());
+            //GrimeronGrid finalGrid = new GrimeronGrid(dimension, dimension);
+            //game.getGameFrame().setGrid(finalGrid);
+        } catch(Exception ex) {
+            
+        }
+        
         isSetup = true;
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void testDBBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testDBBtnActionPerformed
+        String host = urlField.getText();
+        String port = portField.getText();
+        String dbName = nameField.getText();
+        String user = usernameField.getText();
+        String pass = passwordField.getText();
+            
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+            
+        Connection testCon = DBConnector.getSimpleConnection(url, user, pass);
+            
+        if(testCon == null)
+        {
+            text_teststatus.setForeground(Color.RED);
+            text_teststatus.setText("Status: Connection Failed");
+        } 
+        else
+        {
+            text_teststatus.setForeground(Color.GREEN);
+            text_teststatus.setText("Status: Connection Good!");
+        }
+    }//GEN-LAST:event_testDBBtnActionPerformed
+
+    private void rapidCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rapidCheckboxActionPerformed
+        ruleSet.rapidMode = true;
+    }//GEN-LAST:event_rapidCheckboxActionPerformed
+
+    private void graphicOverrideEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicOverrideEnabledActionPerformed
+        ruleSet.rapidGraphicOverrideEnabled = true;
+    }//GEN-LAST:event_graphicOverrideEnabledActionPerformed
+
+    private void incognitoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incognitoCheckBoxActionPerformed
+        ruleSet.incognitoMode = true;
+    }//GEN-LAST:event_incognitoCheckBoxActionPerformed
+
+    private void statisticModeSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticModeSelectionActionPerformed
+        ruleSet.statisticMode = true;
+    }//GEN-LAST:event_statisticModeSelectionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel advancedPanel;
     private javax.swing.JLabel createdPlayersText;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JComboBox driverSelector;
     private javax.swing.JButton editPlayerButton;
     private javax.swing.JTextField gameCountInput;
     private javax.swing.JLayeredPane generalPanel;
@@ -536,31 +733,47 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField gridDimensionField;
     private javax.swing.JLabel gridDimensionText;
     private javax.swing.JCheckBox incognitoCheckBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JFormattedTextField nameField;
     private javax.swing.JPanel pColorPanel;
     private javax.swing.JLabel pColorSubText;
     private javax.swing.JLabel pStartLocSubText;
     private javax.swing.JLabel pStartLocText;
     private javax.swing.JLabel pTypeSubText;
     private javax.swing.JLabel pTypeText;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JPanel playerCreationPanel;
     private javax.swing.JButton playerRegButton;
+    private javax.swing.JFormattedTextField portField;
     private javax.swing.JCheckBox rapidCheckbox;
     private javax.swing.JComboBox registeredPlayerCombo;
     private javax.swing.JLabel setupText;
     private javax.swing.JCheckBox statisticModeSelection;
     private javax.swing.JButton submitButton;
+    private javax.swing.JButton testDBBtn;
     private javax.swing.JLabel text_advanced_hide;
     private javax.swing.JLabel text_advancedsettings;
     private javax.swing.JLabel text_general_hide;
     private javax.swing.JLabel text_generalsettings;
     private javax.swing.JLabel text_player_hide;
     private javax.swing.JLabel text_player_settings;
+    private javax.swing.JLabel text_teststatus;
+    private javax.swing.JFormattedTextField urlField;
+    private javax.swing.JCheckBox useConnection;
+    private javax.swing.JFormattedTextField usernameField;
     // End of variables declaration//GEN-END:variables
     
     public void togglePanel(JComponent panel, JLabel hideText)
