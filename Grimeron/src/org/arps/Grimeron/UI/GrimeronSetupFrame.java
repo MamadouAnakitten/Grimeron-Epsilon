@@ -656,7 +656,6 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
         if(rapidCheckbox.isSelected())
         {
 
-
             if(graphicOverrideEnabled.isSelected())
             {
                 ruleSet.rapidGraphicOverrideEnabled = true;
