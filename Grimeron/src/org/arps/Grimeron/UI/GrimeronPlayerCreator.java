@@ -215,8 +215,6 @@ public class GrimeronPlayerCreator extends javax.swing.JFrame {
         Player.Type type = Player.Type.BOT; //Default to Bot
         Color color = Color.WHITE; //Default Color
         String name = playerNameSelector.getText();
-        
-        ArrayList<Tile> allTiles = grid.getPieces();
         ArrayList<Tile> freeTiles = grid.getLiveTiles();
         
         Tile startingTile = freeTiles.get(0);
