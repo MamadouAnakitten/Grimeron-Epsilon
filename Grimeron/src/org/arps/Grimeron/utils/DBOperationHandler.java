@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import org.arps.Grimeron.utils.enums.Direction;
 import org.arps.Grimeron.Move;
@@ -15,11 +16,13 @@ public class DBOperationHandler{
     private Statement statement;
     private Connection connection;
     
+    private Properties serverPropterties;
+    
     private String host;
     private String port;
     private String dbName;
     private String tableName;
-    
+
 
     public DBOperationHandler(Connection connection, String tableName){
         this.tableName = tableName;
@@ -39,11 +42,11 @@ public class DBOperationHandler{
         this.dbName = dbName;
         this.tableName = tableName;
         
-        String url = "jdbc:derby://" + host + ":" + port + "/" + dbName;
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
          
         if(this.connection != null){
             try {
-                this.connection = DBConnect.getConnection(url, user, pass);
+                this.connection = DBConnector.getSimpleConnection(url, user, pass);
                 this.statement = connection.createStatement();
             } catch (SQLException ex) {
                 return;

@@ -6,16 +6,9 @@ import javax.naming.*;
 import javax.sql.*;
 
 public class DBConnector {
-
-    private Properties serverProperties;
-    
-    public DBConnector(Properties serverProperties)
-    {
-        this.serverProperties = serverProperties;
-    }
-    
+  
     /** Uses JNDI and Datasource (preferred style).   */
-    public Connection getJNDIConnection(){
+    public static Connection getJNDIConnection(){
         String DATASOURCE_CONTEXT = "java:comp/env/jdbc/blah";
     
         Connection result = null;
@@ -43,13 +36,13 @@ public class DBConnector {
     }
 
     /** Uses DriverManager.  */
-    public Connection getSimpleConnection() {
+    public static Connection getSimpleConnection(String url, String user, String pass) {
         //See your driver documentation for the proper format of this string :
-        String DB_CONN_STRING = "jdbc:mysql://localhost:3306/airplanes";
+        String DB_CONN_STRING = url;
         //Provided by your driver documentation. In this case, a MySql driver is used : 
-        String DRIVER_CLASS_NAME = "org.gjt.mm.mysql.Driver";
-        String USER_NAME = "juliex";
-        String PASSWORD = "ui893djf";
+        String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+        String USER_NAME = user;
+        String PASSWORD = pass;
     
         Connection result = null;
         try 

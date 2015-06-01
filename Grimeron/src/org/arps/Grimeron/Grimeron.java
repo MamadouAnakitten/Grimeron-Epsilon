@@ -9,7 +9,6 @@
  */
 package org.arps.Grimeron;
 
-import java.sql.Connection;
 import org.arps.Grimeron.entity.Tile;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -19,7 +18,6 @@ import org.arps.Grimeron.console.Console;
 import org.arps.Grimeron.console.commands.Help;
 import org.arps.Grimeron.console.commands.Restart;
 import org.arps.Grimeron.entity.Player;
-import org.arps.Grimeron.utils.DBConnect;
 import org.arps.Grimeron.utils.DBOperationHandler;
 import org.arps.Grimeron.utils.RuleSet;
 import org.arps.Grimeron.utils.enums.PromptSet;
@@ -34,9 +32,7 @@ public class Grimeron{
 
     private DBOperationHandler dbHandler;
     private RuleSet ruleSet;
-    
-    private Properties serverProperties;
-    
+   
     private Console console;
     
     public int round = 0;
@@ -47,13 +43,7 @@ public class Grimeron{
      */
     public Grimeron(RuleSet ruleSet)
     {        
-        console = new Console(this);
-        serverProperties = new Properties();
-        serverProperties.put("url", "jdbc:derby://localhost:1527/grimeron_main");
-        serverProperties.put("user", "grimeron");
-        serverProperties.put("pass", "dankmeme69");
-        
-        initializeDB();
+        console = new Console(this);      
         this.ruleSet = ruleSet;     
         
         gameFrame = new GrimeronFrame(this, console);
@@ -107,19 +97,6 @@ public class Grimeron{
         console.registerCommand(new Restart(this));
     }
     
-    private void initializeDB()
-    {
-        Connection connection = null;
-        connection = DBConnect.getConnection(serverProperties.getProperty("url"), serverProperties.getProperty("user"), serverProperties.getProperty("pass"));
-        if(connection != null)
-        {
-            this.dbHandler = new DBOperationHandler(connection, "MOVEHISTORY");
-            console.write(PromptSet.DB_NULL_INCOGNITO_DISABLE.toString());
-        }else{
-            this.dbHandler = null;
-            console.write(PromptSet.DB_NULL_INCOGNITO_ENABLE.toString());
-        }
-    }
     
     public void setupGame()
     {
@@ -344,11 +321,6 @@ public class Grimeron{
     public int getTurn() 
     {
         return round;
-    }
-
-    public Properties getServerProperties() 
-    {
-        return serverProperties;
     }
     
     public static void main(String[] args) 
