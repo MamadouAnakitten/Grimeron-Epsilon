@@ -655,7 +655,6 @@ public class GrimeronSetupFrame extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         if(rapidCheckbox.isSelected())
         {
-
             if(graphicOverrideEnabled.isSelected())
             {
                 ruleSet.rapidGraphicOverrideEnabled = true;
