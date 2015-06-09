@@ -42,12 +42,12 @@ public abstract class Player{
         FOURTH(4),
         NONE(5);
         
-        double weight;
+        float weight;
         
-        private Place(double weight){
+        private Place(float weight){
             this.weight = weight;
         }
-        public double getWeight(){
+        public float getWeight(){
             return this.weight;
         }
     }

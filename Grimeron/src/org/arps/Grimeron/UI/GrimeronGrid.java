@@ -317,7 +317,7 @@ public class GrimeronGrid extends JPanel {
                 surroundingTiles.add(nextTile);
             }
         //West x-1
-            nextTile = this.getTileAt(tileX+1, tileY);
+            nextTile = this.getTileAt(tileX-1, tileY);
             if(nextTile != null){
                 surroundingTiles.add(nextTile);
             }
@@ -336,11 +336,11 @@ public class GrimeronGrid extends JPanel {
         ArrayList<Tile> surroundingTiles = this.getTilesSurrounding(tile);
         ArrayList<Tile> liveSurroundingTiles = new ArrayList<>();
         for(Tile nextTile: surroundingTiles){
-            if(!nextTile.getState().equals(Tile.State.OPEN)){
-                liveSurroundingTiles.remove(nextTile);
+            if(nextTile.getState().equals(Tile.State.OPEN)){
+                liveSurroundingTiles.add(nextTile);
             }
         }
         
-        return surroundingTiles;
+        return liveSurroundingTiles;
     }
 }

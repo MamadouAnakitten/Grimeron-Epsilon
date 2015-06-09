@@ -115,14 +115,14 @@ public class StatisticSet {
                     }
                 
                     int fromX=0, fromY=0;
-                    double weight=5;
+                    float weight=5;
                     int direction=0;
                     int frequency=0;
                     int turn=0;
                 
                     fromX = allMoves.getInt("x");
                     fromY = allMoves.getInt("y");
-                    weight = allMoves.getDouble("weight");
+                    weight = allMoves.getFloat("weight");
                     direction = allMoves.getInt("direction");
                     frequency = allMoves.getInt("frequency");
                     turn = allMoves.getInt("turn");

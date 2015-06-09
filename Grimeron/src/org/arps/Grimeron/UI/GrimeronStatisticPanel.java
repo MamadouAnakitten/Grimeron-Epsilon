@@ -102,7 +102,7 @@ public class GrimeronStatisticPanel extends javax.swing.JPanel {
                 }
             ) {
                 Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
                 };
 
                 public Class getColumnClass(int columnIndex) {
@@ -141,7 +141,7 @@ public class GrimeronStatisticPanel extends javax.swing.JPanel {
                 }
             ) {
                 Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
                 };
 
                 public Class getColumnClass(int columnIndex) {
@@ -180,7 +180,7 @@ public class GrimeronStatisticPanel extends javax.swing.JPanel {
                 }
             ) {
                 Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
                 };
                 boolean[] canEdit = new boolean [] {
                     false, false, false, false
@@ -226,7 +226,7 @@ public class GrimeronStatisticPanel extends javax.swing.JPanel {
                 }
             ) {
                 Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+                    java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
                 };
 
                 public Class getColumnClass(int columnIndex) {

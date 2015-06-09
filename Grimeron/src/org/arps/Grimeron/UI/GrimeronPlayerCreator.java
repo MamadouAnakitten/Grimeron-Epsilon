@@ -3,10 +3,10 @@ package org.arps.Grimeron.UI;
 import java.awt.Color;
 import java.util.ArrayList;
 import org.arps.Grimeron.Grimeron;
-import org.arps.Grimeron.entity.custom.Bot;
 import org.arps.Grimeron.entity.custom.Human;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.entity.Tile;
+import org.arps.Grimeron.entity.custom.Bot;
 import org.arps.Grimeron.utils.DBOperationHandler;
 
 /**

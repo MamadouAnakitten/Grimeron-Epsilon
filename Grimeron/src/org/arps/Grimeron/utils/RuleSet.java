@@ -24,6 +24,7 @@ public class RuleSet {
     public boolean rapidMode = false;
     
     public boolean rapidGraphicOverrideEnabled = false;
+    public boolean adminTestOverride = false;
    
     public int rapidModeCount = 0;
 
@@ -54,6 +55,10 @@ public class RuleSet {
      */
     public boolean checkGame()
     {
+        if(adminTestOverride)
+        {
+            return false;
+        }
         int deadCount = 0;
         
         for(Player player: playerList)

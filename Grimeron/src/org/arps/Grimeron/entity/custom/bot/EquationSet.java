@@ -31,7 +31,7 @@ public class EquationSet {
         }
     }
     
-    private double weight = 0;
+    private float weight = 0;
     private int pathsize = 0;
     private int recursions = 0;
     private int enemiesOnPath = 0;
@@ -45,36 +45,36 @@ public class EquationSet {
         functionType = GFunction.Ox;
     }
     
-    public EquationSet(Tile source, double weight, int enemies, int pathsize, int recursions)
+    public EquationSet(Tile source, float weight, int enemies, int pathsize, int recursions)
     {
         functionType = GFunction.Ox;
     }
     
-    public EquationSet(Tile source, double weight, int enemies, int pathsize, int recursions, GFunction functionType)
+    public EquationSet(Tile source, float weight, int enemies, int pathsize, int recursions, GFunction functionType)
     {
         functionType = GFunction.Ox;
     }
     
-    public double evaluateWeight()
+    public float evaluateWeight()
     {
         switch(functionType)
         {
             case Ox:
                 return ((pathsize/recursions) / weight);
             case Fx:
-                return (Math.pow((pathsize/recursions), enemiesOnPath) / weight);
+                return (float) (Math.pow((pathsize/recursions), enemiesOnPath) / weight);
             case Ax:
-                return (Math.pow((pathsize/recursions), (-enemiesOnPath/weight)));
+                return (float) (Math.pow((pathsize/recursions), (-enemiesOnPath/weight)));
         }
         return 0;
     }
 
-    public double getWeight() 
+    public float getWeight() 
     {
         return weight;
     }
 
-    public void setWeight(double weight) 
+    public void setWeight(float weight) 
     {
         this.weight = weight;
     }

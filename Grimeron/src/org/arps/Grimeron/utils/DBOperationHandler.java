@@ -69,11 +69,11 @@ public class DBOperationHandler{
             try {
                 if(sameMove.first()){
                     //Gets weight of the resultset move
-                    double prevWeight = sameMove.getDouble("weight");
+                    float prevWeight = sameMove.getFloat("weight"); //ASDKNASALKJSDNVSLAKDFVNSLKDFNV
                     //Gets frequency of resultset move
                     int frequency = sameMove.getInt("frequency");
                 
-                    double newWeight = Move.averageWeight(storedMove, frequency, prevWeight);
+                    float newWeight = Move.averageWeight(storedMove, frequency, prevWeight);
                 
                     int id = sameMove.getInt("id");
                 
@@ -100,7 +100,7 @@ public class DBOperationHandler{
         }     
     }
     
-    private void updateMove(int id, double newWeight, int frequency){
+    private void updateMove(int id, float newWeight, int frequency){
         
         frequency = frequency + 1;
         String updater = "UPDATE " + tableName + " SET weight = " + newWeight + ", frequency = " + frequency + "WHERE id = " + id;
@@ -112,7 +112,7 @@ public class DBOperationHandler{
         }     
     }
    
-    public double getMoveWeight(Tile fromTile, Direction direction, int turn){
+    public float getMoveWeight(Tile fromTile, Direction direction, int turn){
         String selection = "SELECT * FROM " + tableName + " WHERE X=" + fromTile.getGameX() +
                 " AND Y=" + fromTile.getGameY() + 
                 " AND TURN=" + turn + 
@@ -125,15 +125,15 @@ public class DBOperationHandler{
         }catch(Exception ex){
         }
         
-        double avgWeight = (Player.Place.FIRST.getWeight() + Player.Place.NONE.getWeight()) / 2;
+        float avgWeight = (Player.Place.FIRST.getWeight() + Player.Place.NONE.getWeight()) / 2;
         
-        double weight = avgWeight;
+        float weight = avgWeight;
         
         if(foundMove != null){
             try {
                 if(foundMove.first()){
                     //Gets weight of the resultset move
-                    weight = foundMove.getDouble("weight");
+                    weight = foundMove.getFloat("weight");
                 }else{
                 }
             } catch (SQLException ex) {
@@ -144,7 +144,7 @@ public class DBOperationHandler{
     }
 
     //Function that Turns a Tile into a Weight
-    public double getMoveWeight(Tile fromTile, Tile toTile, int turn){
+    public float getMoveWeight(Tile fromTile, Tile toTile, int turn){
     
         Direction thisDirection = null;
        
@@ -188,7 +188,7 @@ public class DBOperationHandler{
             thisDirection = Direction.getValueOf(1);
         }
         
-        double weight = getMoveWeight(fromTile, thisDirection, turn);
+        float weight = getMoveWeight(fromTile, thisDirection, turn);
         return weight;
     }
    

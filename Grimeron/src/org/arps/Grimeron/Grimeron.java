@@ -11,16 +11,17 @@ package org.arps.Grimeron;
 
 import org.arps.Grimeron.entity.Tile;
 import java.util.ArrayList;
-import java.util.Properties;
 import org.arps.Grimeron.UI.GrimeronFrame;
 import org.arps.Grimeron.UI.GrimeronSetupFrame;
 import org.arps.Grimeron.console.Console;
+import org.arps.Grimeron.console.commands.End;
 import org.arps.Grimeron.console.commands.Help;
 import org.arps.Grimeron.console.commands.Restart;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.utils.DBOperationHandler;
 import org.arps.Grimeron.utils.RuleSet;
 import org.arps.Grimeron.utils.enums.PromptSet;
+
 /**
  * Primary running class for the Grimeron Game.
  * @author Richard Hogans and Julian Clark
@@ -95,6 +96,7 @@ public class Grimeron{
     private void registerCommands(){
         console.registerCommand(new Help(this));
         console.registerCommand(new Restart(this));
+        console.registerCommand(new End(this));
     }
     
     
@@ -260,7 +262,7 @@ public class Grimeron{
             {
                 if(player.getType().equals(Player.Type.HUMAN) && player.getPlace().equals(Player.Place.FIRST))
                 {
-                    move.weight = player.getPlace().getWeight() - 0.7;
+                    move.weight = (float) (player.getPlace().getWeight() - 0.7);
                 }else{
                     move.weight = player.getPlace().getWeight();
                 }
@@ -354,6 +356,7 @@ public class Grimeron{
         Grimeron game = new Grimeron(rules);
         
         game.automatedRun();
+        
     }
 
     public Console getConsole() {

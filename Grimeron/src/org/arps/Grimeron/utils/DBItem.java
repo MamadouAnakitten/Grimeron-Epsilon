@@ -16,7 +16,7 @@ public class DBItem
     public int x;
     public int y;
     public int frequency;
-    public double weight;
+    public float weight;
     public Direction direction;
     
     public DBItem()

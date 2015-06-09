@@ -16,7 +16,7 @@ public class Move {
     public Direction direction = null;
     public int turn = -1;
     public int frequency = 0;
-    public double weight = 5;
+    public float weight = 5;
     
     /**
      * Create new move information (Handy for communicating all the details of moves massively.)
@@ -53,7 +53,7 @@ public class Move {
      * @param turn
      * @param frequency
      */
-    public Move(int fromX, int fromY, int direction, int turn, int frequency, double weight){
+    public Move(int fromX, int fromY, int direction, int turn, int frequency, float weight){
         this.fromTile = new Tile(fromX, fromY);
         this.direction = Direction.getValueOf(direction);
         this.turn = turn;
@@ -86,10 +86,10 @@ public class Move {
      * @param move
      * @param frequency
      * @param previousWeight
-     * @return double Averaged Weight
+     * @return float Averaged Weight
      */
-    public static double averageWeight(Move move, int frequency, double previousWeight){
-        double newWeight;
+    public static float averageWeight(Move move, int frequency, float previousWeight){
+        float newWeight;
         newWeight = (((previousWeight * frequency) + move.weight)/(frequency + 1));
         return newWeight;
     }

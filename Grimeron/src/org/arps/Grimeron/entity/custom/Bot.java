@@ -23,10 +23,8 @@ import org.arps.Grimeron.utils.DBOperationHandler;
  * @author richa_000
  */
 public class Bot extends Player{
-    // Deals with the Database connections
     public final DBOperationHandler opHandler;
-    public int defaultRecursionCount = 6;
-    public double decisionBuffer = 2;
+    public int defaultRecursionCount = 500;
     private final GrimeronGrid grid;
     
     //Bot Initialization
@@ -37,19 +35,18 @@ public class Bot extends Player{
         this.grid = grid;
     }
     
+    @Override
     public Move performMove(ArrayList<Tile> emptySquares, int turn)
     {
+        System.out.println(grid.getLiveTilesSurrounding(this.getTile()));
         ArrayList<Tile> potentialNextMoves = new ArrayList<>();
-        ArrayList<Tile> unratedMoves = new ArrayList<>();
         
-        Tile chosenTile;
-        
-        double defaultWeight = (Player.Place.FIRST.getWeight() + Place.NONE.getWeight()) / 2.0;
-        double weight = new Double(defaultWeight); //Deep copy.
+        float defaultWeight = (float) ((Player.Place.FIRST.getWeight() + Place.NONE.getWeight()) / 2.0);
+        float weight = defaultWeight; //copy.
         
         //BOTH MAPS SHOULD BE MADE FROM POTENTIAL LEGAL MOEVS..
         //Weights of possible moves 
-        HashMap<Tile, Double> moveWeightValues = new HashMap<>();
+        HashMap<Tile, Float> moveWeightValues = new HashMap<>();
         //Potential Pathsize of possible moves.
         ArrayList<TripleSet> tripletAssociation = new ArrayList<>();
       
@@ -67,8 +64,8 @@ public class Bot extends Player{
             }
         }
         
-        Collections.shuffle(potentialNextMoves);
-
+        //Collections.shuffle(potentialNextMoves);
+        
         //Fills a hashmap of possible moves and their values in terms of move weight
         for(Tile nextTile: potentialNextMoves)
         {
@@ -78,11 +75,17 @@ public class Bot extends Player{
             moveWeightValues.put(nextTile, weight);
         }
         
+        ArrayList<Tile> preExclude = new ArrayList<Tile>();
+            preExclude.add(this.getTile());
         Iterator it = moveWeightValues.entrySet().iterator();        
         while(it.hasNext())
         {
             Map.Entry pair = (Map.Entry) it.next();
-            tripletAssociation.add( new TripleSet((Tile)pair.getKey(), (Double)pair.getValue(), recursiveSearch((Tile)pair.getKey(), defaultRecursionCount, new ArrayList<>())));
+            
+            tripletAssociation.add( 
+                    new TripleSet((Tile)pair.getKey(),
+                    (float)pair.getValue(), 
+                    recursiveSearch((Tile)pair.getKey(), 0, preExclude)));
         }
         
         //Start the move decision process.
@@ -97,7 +100,8 @@ public class Bot extends Player{
             //Start with the equations.
             // f(x,y,z) = x/(y/z) where x = weight, y = potential moves count, z = recursionCount
             //Variables being used: moveWeightValues, pathsizeValues, potentialMoves, defaultRecursionCount
-            bestRatedTile = retrieveBestTileFromEquation(tripletAssociation);
+            //bestRatedTile = retrieveBestTileFromEquation(tripletAssociation);
+            bestRatedTile = getBestTile(potentialNextMoves);
             
             Move performedMove = null;
         
@@ -113,122 +117,102 @@ public class Bot extends Player{
         return null;
     }
     
-    private Tile retrieveBestTileFromEquation(ArrayList<TripleSet> moves)
+    public Tile getBestTile(ArrayList<Tile> potentialTiles)
     {
-        HashMap<TripleSet, Double> f_of_x = new HashMap<>();
+        // Association between tiles and how many generations are possible from them.
+        HashMap<Tile, Integer> tileToGenerations = new HashMap<>();
         
-        for(TripleSet move: moves)
-        {
-            f_of_x.put(move, evaluate(move.weight, move.pathsize, defaultRecursionCount));
-        }
-        
-        List<Double> results = new ArrayList(f_of_x.values());
-        Collections.sort(results, new Comparator<Double>() 
-        {
-            @Override
-            public int compare(Double d, Double d_1) {
-                return d.compareTo(d_1);
-            }
-        });
-        Iterator it = f_of_x.entrySet().iterator();
-        TripleSet nextSet = null;
-        while(it.hasNext())
-        {
-            Map.Entry pair = (Map.Entry) it.next();
-            
-            if((Double)pair.getValue() == results.get((results.size()-1)))
-            {
-                nextSet = (TripleSet)pair.getKey();
-                return nextSet.tile;
-            }
-        }
-        return null;
-    }
-    
-    private double evaluate(double x, int y, int z)
-    {
-        return ((y / z)/x);
-    }
-    
-    public Tile getHumanlyBestMove(ArrayList<Tile> potentialTiles)
-    {
-        HashMap<Tile, Integer> pathsizes = new HashMap<>();
-        
+        // A list of pairs that will be retrieved from a future loop.
         ArrayList<Map.Entry> pairs = new ArrayList<>();
-        ArrayList<Integer> retrievedPaths = new ArrayList<>();
+        // Retrieved generation values.
+        List<Integer> generationValues;
         
+        // For every potential tile...
         for(Tile tile: potentialTiles)
         {
-            pathsizes.put(tile, recursiveSearch(tile, defaultRecursionCount, new ArrayList<>()));
-        }
-        Iterator it = pathsizes.entrySet().iterator();
-        while (it.hasNext()) 
-        {
-            Map.Entry pair = (Map.Entry)it.next();
-            retrievedPaths.add((int)pair.getValue());
+            // Put into the map the tile and its potential count.
+            tileToGenerations.put(tile, recursiveSearch(tile, 0, new ArrayList<Tile>()));
         }
         
-        Collections.sort(retrievedPaths, new Comparator<Integer>() 
+        // Get the values for generations then sort them from highest to lowest..
+        generationValues = new ArrayList(tileToGenerations.values());
+
+        Collections.sort(generationValues, new Comparator<Integer>() 
         {
             @Override
             public int compare(Integer int_a, Integer int_b) {
                 return int_a.compareTo(int_b);
             }
-        });
+        }); Collections.reverse(generationValues); 
         
-        int selectedHighestPath = retrievedPaths.get(retrievedPaths.size()-1);
-        Tile selectedTile = potentialTiles.get(0);
         
-        for(Map.Entry pair: pairs){
-            if((int)pair.getValue() == selectedHighestPath){
-                selectedTile = (Tile)pair.getKey();
-            }
+        // The highest path is the first in the list.
+        int bestGeneration = generationValues.get(0);
+        
+        ArrayList<Tile> bestTiles = new ArrayList<Tile>();
+        
+        for(Tile tile: tileToGenerations.keySet())
+        {
+            if(tileToGenerations.get(tile) == bestGeneration) bestTiles.add(tile);
         }
         
-        System.out.println("Chose " + selectedHighestPath + " out of values: " + retrievedPaths);
+        Collections.shuffle(bestTiles);
         
-        return selectedTile;
+        //System.out.println("Best Tiles: " + bestTiles);
+        //System.out.println("Chose tile " + bestTiles.get(0) + " which had a generation count of " + tileToGenerations.get(bestTiles.get(0)) +
+        //        " out of " + generationValues);
+        
+        return bestTiles.get(0);
     }
     
     //Return the amount of possible moves from <tile>, <recursions> times.
-    private int recursiveSearch(Tile tile, int recursions, ArrayList<Tile> exclusion)
+    private int recursiveSearch(Tile tile, int generation, ArrayList<Tile> exclusion)
     {
-        int potentialPaths = 0;
-        ArrayList<Tile> foundTiles;
-        for(int loop=0; loop < recursions; loop++)
+        exclusion.add(tile);                                  // Add current tile to exclusion.
+        int nextGen = 0;                                      // The number of the next generation.
+        int highestGen = generation;                          // Highest Generation Reported.
+        ArrayList<Tile> foundTiles;                           // The Live Tiles Surrounding 'tile'
+        for(int i=0; i<defaultRecursionCount; i++)            // Increment loop to maximum allowed recursions. (Should never reach that number.)
         {
-            foundTiles = grid.getLiveTilesSurrounding(tile);
-            
-            for(Tile nextTile: exclusion)
+            foundTiles = grid.getLiveTilesSurrounding(tile);  // Found tiles are the tiles that are alive around 'tile'.
+
+            for(Tile nextTile: exclusion)                     // For every one of the tiles in exclusion...
             {
-                if(foundTiles.contains(nextTile))
+                if(foundTiles.contains(nextTile))             // If the found tile should be excluded...
                 {
-                    foundTiles.remove(nextTile);
+                    foundTiles.remove(nextTile);              // Remove the tile from foundTiles.
                 }
             }
             
-            potentialPaths = potentialPaths + foundTiles.size();
-            exclusion.add(tile);
+            //System.out.println(" \n \n");
+            //System.out.println(foundTiles);
+            //System.out.println(exclusion);
+            //System.out.println(" \n \n ");
             
-            for(Tile nextTile: foundTiles)
+            if(foundTiles.isEmpty())                          // If theres nothing else to find, break from the loop.
             {
-                potentialPaths = potentialPaths + recursiveSearch(nextTile, recursions - 1, exclusion);
+                break;
             }
             
+            for(Tile nextTile: foundTiles)                    // For every tile that is validly found...
+            {                                                 // Get the highest generation/
+                nextGen = recursiveSearch(nextTile, generation + 1, exclusion);
+                if(nextGen > highestGen) highestGen = nextGen;
+            }  
         }
-        return potentialPaths;
+        return highestGen;                                    // Return it.
     }
     
     private class TripleSet
     {
         public final Tile tile;
-        public final double weight;
-        public final int pathsize;
+        public final float weight;
+        public final int generations;
         
-        public TripleSet(Tile tile, double weight, int pathsize){
+        public TripleSet(Tile tile, float weight, int generations){
             this.tile = tile;
             this.weight = weight;
-            this.pathsize = pathsize;
+            this.generations = generations;
         }
     }
 }

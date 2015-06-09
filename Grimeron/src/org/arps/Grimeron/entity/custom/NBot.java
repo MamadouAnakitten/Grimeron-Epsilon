@@ -6,6 +6,7 @@
 package org.arps.Grimeron.entity.custom;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -16,8 +17,8 @@ import org.arps.Grimeron.Move;
 import org.arps.Grimeron.UI.GrimeronGrid;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.entity.Tile;
-import org.arps.Grimeron.entity.custom.bot.EquationSet;
 import org.arps.Grimeron.utils.DBOperationHandler;
+import org.arps.Grimeron.utils.math.RecursionSegment;
 
 /**
  *
@@ -26,26 +27,27 @@ import org.arps.Grimeron.utils.DBOperationHandler;
 public class NBot extends Player{
     // Deals with the Database connections
     public final DBOperationHandler opHandler;
-    public int defaultRecursionCount = 6;
-    public double decisionBuffer = 2;
+    public int defaultRecursionCount = 3;
+    //public float decisionBuffer = 2;
     private final GrimeronGrid grid;
     
     //Bot Initialization
     public NBot(Tile tile, String name, DBOperationHandler opHandler, GrimeronGrid grid)
     {
-        super(Player.Type.BOT, tile, name);
+        super(Type.BOT, tile, name);
         this.opHandler = opHandler;
         this.grid = grid;
     }
     
     public Move performMove(ArrayList<Tile> emptySquares, int turn)
     {
-        ArrayList<EquationSet> potentialSearchResults;
         ArrayList<Tile> potentialNextMoves = new ArrayList<>();
         
-        double defaultWeight = (Player.Place.FIRST.getWeight() + Player.Place.NONE.getWeight()) / 2.0;
-        double weight = new Double(defaultWeight); //Deep copy.
+        float defaultWeight = (float) ((Player.Place.FIRST.getWeight() + Place.NONE.getWeight()) / 2.0);
+        float weight = defaultWeight; //Deep copy.
         
+        //Weights of possible moves 
+        HashMap<Tile, Float> moveWeightValues = new HashMap<>();
 
         //Narrow next moves to 8 moves.
         for(Tile eachTile: emptySquares)
@@ -67,28 +69,39 @@ public class NBot extends Player{
         for(Tile nextTile: potentialNextMoves)
         {
             if(opHandler != null){
-                nextTile.weight = opHandler.getMoveWeight(this.getTile(), nextTile, turn);
+                weight = opHandler.getMoveWeight(this.getTile(), nextTile, turn);
             }
+            moveWeightValues.put(nextTile, weight);
         }
         
-        //Start the move decision process.
+        //Start the me decision process.
         if(potentialNextMoves.isEmpty())
-        {    
+        {   
             this.kill();
         }
         else
         {
-            
             Tile bestRatedTile = null;
-            Move performedMove = null;
-        
-            potentialSearchResults = new ArrayList<>();
+         
+            ArrayList<RecursionSegment> segs  = new ArrayList<RecursionSegment>();
             
-            for(Tile nextTile: potentialNextMoves)
+            for(Tile tile: potentialNextMoves)
             {
-                potentialSearchResults.add(recursiveSearch(nextTile, defaultRecursionCount, new ArrayList<>()));
+                segs.add(new RecursionSegment(tile, defaultRecursionCount, grid));
             }
             
+            try{
+                RecursionSegment[] seg = new RecursionSegment[segs.size()];  
+                bestRatedTile = pickBestOrigin(segs.toArray(seg)).getCurrentTile();
+            }catch(NullPointerException ex ){
+                System.out.println("You suck ");
+            }
+            
+            
+            
+            
+            Move performedMove = null;
+        
             //If still alive, moves towards the square it picked
             if(this.isExistant()){
                 performedMove = new Move(this, this.getTile(), bestRatedTile, turn);
@@ -101,30 +114,68 @@ public class NBot extends Player{
         return null;
     }
     
-    //Return the amount of possible moves from <tile>, <recursions> times.
-    private EquationSet recursiveSearch(Tile tile, int recursions, ArrayList<Tile> exclusion)
-    {
-        EquationSet newSet = new EquationSet();
-        ArrayList<Tile> foundTiles;
-        for(int loop=0; loop < recursions; loop++)
-        {
-            foundTiles = grid.getTilesSurrounding(tile);
-            for(Tile nextTile: foundTiles)
-            {
-                if(!exclusion.contains(nextTile))
-                {
-                    switch(nextTile.getState())
-                    {
-                        case OPEN:
-                            newSet.setPathsize(newSet.getPathsize() + 1);
-                            break;
-                        case OCCUPIED:
-                            newSet.setEnemiesOnPath(newSet.getEnemiesOnPath() + 1);
-                            break;
-                    }
-                }
+    
+
+    private RecursionSegment pickBestOrigin(RecursionSegment... segs){
+        
+        HashMap<RecursionSegment, Integer> originMaxPath = new HashMap<>();
+        
+        for(RecursionSegment segment: Arrays.asList(segs)){
+            ArrayList<RecursionSegment> endList = segment.recursiveSearch(segment);
+            HashMap<RecursionSegment, Integer> genCount = new HashMap<RecursionSegment, Integer>();
+          
+            for(RecursionSegment endSeg: endList){
+                genCount.put(endSeg, endSeg.getGeneration());
             }
+          
+            List<Integer> generationList = new ArrayList( genCount.values() );
+          
+            Collections.sort(generationList, new Comparator<Integer>() {
+                @Override
+                public int compare(Integer i, Integer j) {
+                    return i.compareTo(j);
+                }
+            });
+          
+            Collections.reverse(generationList);
+          
+            originMaxPath.put(segment, generationList.get(0));
         }
-        return newSet;
+
+        List<Integer> finalGenerations = new ArrayList( originMaxPath.values() );
+          
+        Collections.sort(finalGenerations, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer i, Integer j) {
+                return i.compareTo(j);
+            }
+        });
+          
+        Collections.reverse(finalGenerations);
+
+        Iterator it = originMaxPath.entrySet().iterator();
+        
+        while(it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) it.next();
+            
+            if(pair.getValue() == finalGenerations.get(0)) return (RecursionSegment) pair.getKey();
+        }
+        
+        return null;
+    }
+
+    
+    private class TripleSet
+    {
+        public final Tile tile;
+        public final float weight;
+        public final int pathsize;
+        
+        public TripleSet(Tile tile, float weight, int pathsize){
+            this.tile = tile;
+            this.weight = weight;
+            this.pathsize = pathsize;
+        }
     }
 }
