@@ -42,7 +42,7 @@
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="jSeparator1" max="32767" attributes="0"/>
           </Group>
-          <Component id="setupText" alignment="0" pref="1139" max="32767" attributes="0"/>
+          <Component id="setupText" alignment="0" pref="1146" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Component id="jSeparator3" min="-2" pref="17" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -87,7 +87,7 @@
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="generalPanel" min="-2" pref="155" max="-2" attributes="0"/>
+              <Component id="generalPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -176,16 +176,27 @@
                           <Component id="gameCountInput" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="graphicOverrideEnabled" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="incognitoCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="statisticModeSelection" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="gridDimensionText" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="gridDimensionField" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="rapidDelaySlider" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="incognitoCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="statisticModeSelection" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="gridDimensionText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="gridDimensionField" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="adminOverride" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jSeparator7" alignment="1" max="32767" attributes="0"/>
           </Group>
@@ -198,6 +209,8 @@
                       <Component id="rapidCheckbox" alignment="2" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="graphicOverrideEnabled" alignment="2" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="gameCountInput" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="rapidDelaySlider" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="incognitoCheckBox" min="-2" pref="24" max="-2" attributes="0"/>
@@ -209,8 +222,9 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="gridDimensionText" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="gridDimensionField" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="adminOverride" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -284,6 +298,27 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator7">
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="adminOverride">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Don&apos;t Check Settings Before Running Game"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSlider" name="rapidDelaySlider">
+          <Properties>
+            <Property name="minimum" type="int" value="1"/>
+            <Property name="paintLabels" type="boolean" value="true"/>
+            <Property name="paintTicks" type="boolean" value="true"/>
+            <Property name="value" type="int" value="25"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Rapid Graphic Delay"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
