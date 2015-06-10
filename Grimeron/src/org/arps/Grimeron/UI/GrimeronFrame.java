@@ -5,77 +5,35 @@
  */
 package org.arps.Grimeron.UI;
 
+import org.arps.Grimeron.UI.Panels.GrimeronGrid;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import javax.swing.DefaultListModel;
-import javax.swing.JTabbedPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.arps.Grimeron.Grimeron;
-import org.arps.Grimeron.Move;
+import org.arps.Grimeron.UI.Panels.GrimeronPanel;
 import org.arps.Grimeron.console.Console;
-import org.arps.Grimeron.entity.Player;
-import org.arps.Grimeron.utils.StatisticSet;
 
 /**
  *
  * @author richa_000
  */
 public class GrimeronFrame extends javax.swing.JFrame {
-
+    
     private GrimeronPanel preconfiguredGamePanel;
     private GrimeronGrid grid;
-    private GrimeronStatisticPanel preconfiguredStatPanel; 
-    private StatisticSet stats;
     private Grimeron game;
     private Console console;
-    
-    private DefaultListModel playerListModel = new DefaultListModel();
-    private DefaultListModel moveListModel = new DefaultListModel();
-    
     private volatile boolean restart = false;
-    private volatile boolean waitingForRestart = true;
-    /**
-     * Creates new form GrimeronFrame
-     * @param game
-     */
+    private volatile boolean waitingForStart = true;
+    
     public GrimeronFrame(Grimeron game, Console console) {
         this.game = game;
         this.console = console;
         initPreComponents();
+        setIcon();
         initComponents();
         updateConsole();
-    }
-    
-    public void initialize(){
-        
-    }
-    
-    public void toggleResetText(boolean toggle){
-        this.clickableNo.setVisible(toggle);
-        this.clickableYes.setVisible(toggle);
-        this.text_restart.setVisible(toggle);
-    }
-    
-    public JTabbedPane getTabbedPane(){
-        return this.mainTabbedPanel;
-    }
-
-    public GrimeronGrid getGrid() {
-        return grid;
-    }
-
-    public void setGrid(GrimeronGrid grid) {
-        this.grid = grid;
-    }
-
-    public StatisticSet getStats() {
-        return stats;
-    }
-
-    public void setStats(StatisticSet stats) {
-        this.stats = stats;
-    }
-    
-    public GrimeronPanel getGamePanel(){
-        return this.grimeronPanel;
     }
 
     /**
@@ -87,286 +45,29 @@ public class GrimeronFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
+        setupDialogue = new org.arps.Grimeron.UI.Panels.GameSetupDialogue(this, true, game.getRuleSet());
         mainTabbedPanel = new javax.swing.JTabbedPane();
-        activeGamePAnel = new javax.swing.JPanel();
+        gamePanel = new javax.swing.JLayeredPane();
         grimeronPanel = preconfiguredGamePanel;
-        statisticPanel = new javax.swing.JPanel();
-        gameStats = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        playerInfoPane = new javax.swing.JTabbedPane();
-        selectAPlayerPanel = new javax.swing.JPanel();
-        text_selectPlayer = new javax.swing.JLabel();
-        playerSelectorScrollPane = new javax.swing.JScrollPane();
-        playerSelector = new javax.swing.JList(playerListModel);
-        text_playerWC = new javax.swing.JLabel();
-        playerWinCount = new javax.swing.JLabel();
-        text_averagePlace = new javax.swing.JLabel();
-        averagePlace = new javax.swing.JLabel();
-        playerMoveInfoPanel = new javax.swing.JPanel();
-        moveStatScrollPane = new javax.swing.JScrollPane();
-        playerMoveSelector = new javax.swing.JList(moveListModel);
-        moveInfoText = new javax.swing.JLabel();
-        text_avgLifespan = new javax.swing.JLabel();
-        averageLifspan = new javax.swing.JLabel();
-        gameInfoPAnel = new javax.swing.JPanel();
-        dankabaseStatsPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        text_restart = new javax.swing.JLabel();
-        clickableYes = new javax.swing.JLabel();
-        clickableNo = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         consoleOutputField = new javax.swing.JEditorPane();
         consoleInputField = new javax.swing.JFormattedTextField();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        text_restart = new javax.swing.JLabel();
+        clickableYes = new javax.swing.JLabel();
+        clickableNo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        playersPanel = new javax.swing.JPanel();
+        playerCreatorPanel = new org.arps.Grimeron.UI.Panels.PlayerCreatorPanel(game, grid);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(18, 31, 57));
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                formMouseEntered(evt);
-            }
-        });
+        setTitle("Grimeron");
+        setResizable(false);
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        mainTabbedPanel.setBackground(new java.awt.Color(204, 204, 204));
+        mainTabbedPanel.setOpaque(true);
 
-        mainTabbedPanel.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout activeGamePAnelLayout = new javax.swing.GroupLayout(activeGamePAnel);
-        activeGamePAnel.setLayout(activeGamePAnelLayout);
-        activeGamePAnelLayout.setHorizontalGroup(
-            activeGamePAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(activeGamePAnelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(grimeronPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        activeGamePAnelLayout.setVerticalGroup(
-            activeGamePAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(activeGamePAnelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(grimeronPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        mainTabbedPanel.addTab("Active Game", activeGamePAnel);
-
-        gameStats.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                gameStatsStateChanged(evt);
-            }
-        });
-
-        text_selectPlayer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        text_selectPlayer.setText("Select a player!");
-
-        playerSelector.setBackground(new java.awt.Color(204, 204, 204));
-        playerSelector.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                playerSelectorValueChanged(evt);
-            }
-        });
-        playerSelectorScrollPane.setViewportView(playerSelector);
-
-        text_playerWC.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        text_playerWC.setText("Player Win Count:");
-
-        playerWinCount.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        playerWinCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerWinCount.setText("0");
-
-        text_averagePlace.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        text_averagePlace.setText("Average Place");
-
-        averagePlace.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        averagePlace.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        averagePlace.setText("0");
-
-        playerMoveInfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Player Move Stats", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-
-        playerMoveSelector.setBackground(new java.awt.Color(204, 204, 204));
-        moveStatScrollPane.setViewportView(playerMoveSelector);
-
-        moveInfoText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        moveInfoText.setText("Move Information: ");
-        moveInfoText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        javax.swing.GroupLayout playerMoveInfoPanelLayout = new javax.swing.GroupLayout(playerMoveInfoPanel);
-        playerMoveInfoPanel.setLayout(playerMoveInfoPanelLayout);
-        playerMoveInfoPanelLayout.setHorizontalGroup(
-            playerMoveInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playerMoveInfoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(playerMoveInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(moveInfoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(moveStatScrollPane))
-                .addContainerGap())
-        );
-        playerMoveInfoPanelLayout.setVerticalGroup(
-            playerMoveInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(playerMoveInfoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(moveStatScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(moveInfoText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        text_avgLifespan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        text_avgLifespan.setText("Average Lifespan");
-
-        averageLifspan.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        averageLifspan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        averageLifspan.setText("0");
-
-        javax.swing.GroupLayout selectAPlayerPanelLayout = new javax.swing.GroupLayout(selectAPlayerPanel);
-        selectAPlayerPanel.setLayout(selectAPlayerPanelLayout);
-        selectAPlayerPanelLayout.setHorizontalGroup(
-            selectAPlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectAPlayerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(selectAPlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(playerSelectorScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, selectAPlayerPanelLayout.createSequentialGroup()
-                        .addComponent(text_selectPlayer)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, selectAPlayerPanelLayout.createSequentialGroup()
-                        .addComponent(text_playerWC)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(playerWinCount, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(text_averagePlace, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(averagePlace, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(text_avgLifespan, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(averageLifspan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(playerMoveInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        selectAPlayerPanelLayout.setVerticalGroup(
-            selectAPlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectAPlayerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(text_selectPlayer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playerSelectorScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(selectAPlayerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(text_playerWC)
-                    .addComponent(playerWinCount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(text_averagePlace)
-                    .addComponent(averagePlace)
-                    .addComponent(text_avgLifespan)
-                    .addComponent(averageLifspan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playerMoveInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(21, 21, 21))
-        );
-
-        playerInfoPane.addTab("Player Info", selectAPlayerPanel);
-
-        javax.swing.GroupLayout gameInfoPAnelLayout = new javax.swing.GroupLayout(gameInfoPAnel);
-        gameInfoPAnel.setLayout(gameInfoPAnelLayout);
-        gameInfoPAnelLayout.setHorizontalGroup(
-            gameInfoPAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
-        );
-        gameInfoPAnelLayout.setVerticalGroup(
-            gameInfoPAnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
-
-        playerInfoPane.addTab("Game Info", gameInfoPAnel);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(playerInfoPane)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(playerInfoPane)
-                .addContainerGap())
-        );
-
-        gameStats.addTab("Game Stats", jPanel2);
-
-        javax.swing.GroupLayout dankabaseStatsPanelLayout = new javax.swing.GroupLayout(dankabaseStatsPanel);
-        dankabaseStatsPanel.setLayout(dankabaseStatsPanelLayout);
-        dankabaseStatsPanelLayout.setHorizontalGroup(
-            dankabaseStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
-        );
-        dankabaseStatsPanelLayout.setVerticalGroup(
-            dankabaseStatsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
-        );
-
-        gameStats.addTab("Dankabase Stats", dankabaseStatsPanel);
-
-        javax.swing.GroupLayout statisticPanelLayout = new javax.swing.GroupLayout(statisticPanel);
-        statisticPanel.setLayout(statisticPanelLayout);
-        statisticPanelLayout.setHorizontalGroup(
-            statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gameStats)
-        );
-        statisticPanelLayout.setVerticalGroup(
-            statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gameStats)
-        );
-
-        mainTabbedPanel.addTab("Statistic Panel", statisticPanel);
-
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Grimeron");
-
-        text_restart.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        text_restart.setText("Restart Game?");
-        text_restart.setVisible(false);
-
-        clickableYes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        clickableYes.setForeground(new java.awt.Color(51, 51, 51));
-        clickableYes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        clickableYes.setText("Yes");
-        clickableYes.setVisible(false);
-        clickableYes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                clickableYesMousePressed(evt);
-            }
-        });
-
-        clickableNo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        clickableNo.setForeground(new java.awt.Color(51, 51, 51));
-        clickableNo.setText("No");
-        clickableNo.setVisible(false);
-        clickableNo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                clickableNoMousePressed(evt);
-            }
-        });
+        gamePanel.setBackground(new java.awt.Color(81, 81, 81));
+        gamePanel.setOpaque(true);
 
         consoleOutputField.setEditable(false);
         consoleOutputField.setBackground(new java.awt.Color(232, 232, 255));
@@ -381,67 +82,134 @@ public class GrimeronFrame extends javax.swing.JFrame {
             }
         });
 
+        text_restart.setFont(new java.awt.Font("Golden Age", 0, 18)); // NOI18N
+        text_restart.setForeground(new java.awt.Color(255, 255, 255));
+        text_restart.setText("Restart Game?");
+        text_restart.setVisible(false);
+
+        clickableYes.setFont(new java.awt.Font("Golden Age", 0, 18)); // NOI18N
+        clickableYes.setForeground(new java.awt.Color(204, 204, 204));
+        clickableYes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        clickableYes.setText("Yes");
+        clickableYes.setVisible(false);
+        clickableYes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                clickableYesMousePressed(evt);
+            }
+        });
+
+        clickableNo.setFont(new java.awt.Font("Golden Age", 0, 18)); // NOI18N
+        clickableNo.setForeground(new java.awt.Color(204, 204, 204));
+        clickableNo.setText("No");
+        clickableNo.setVisible(false);
+        clickableNo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                clickableNoMousePressed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Golden Age", 0, 72)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Grimeron");
+
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gamePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(grimeronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gamePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gamePanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(consoleInputField)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                            .addGroup(gamePanelLayout.createSequentialGroup()
+                                .addComponent(text_restart)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clickableYes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clickableNo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30))))
+        );
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gamePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(gamePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(clickableYes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clickableNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(text_restart, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(consoleInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(grimeronPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        gamePanel.setLayer(grimeronPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        gamePanel.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        gamePanel.setLayer(consoleInputField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        gamePanel.setLayer(text_restart, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        gamePanel.setLayer(clickableYes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        gamePanel.setLayer(clickableNo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        gamePanel.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        mainTabbedPanel.addTab("Game", new javax.swing.ImageIcon(getClass().getResource("/org/arps/Grimeron/UI/Images/G.png")), gamePanel); // NOI18N
+
+        javax.swing.GroupLayout playersPanelLayout = new javax.swing.GroupLayout(playersPanel);
+        playersPanel.setLayout(playersPanelLayout);
+        playersPanelLayout.setHorizontalGroup(
+            playersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(playersPanelLayout.createSequentialGroup()
+                .addComponent(playerCreatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 45, Short.MAX_VALUE))
+        );
+        playersPanelLayout.setVerticalGroup(
+            playersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(playersPanelLayout.createSequentialGroup()
+                .addComponent(playerCreatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 161, Short.MAX_VALUE))
+        );
+
+        mainTabbedPanel.addTab("Players", new javax.swing.ImageIcon(getClass().getResource("/org/arps/Grimeron/UI/Images/P.png")), playersPanel); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainTabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(text_restart)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(clickableYes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(clickableNo, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator2)
-                            .addComponent(jSeparator3)
-                            .addComponent(consoleInputField)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(mainTabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1312, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(text_restart)
-                    .addComponent(clickableYes)
-                    .addComponent(clickableNo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(consoleInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-            .addComponent(mainTabbedPanel)
+            .addComponent(mainTabbedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initPreComponents(){
-        grid = new GrimeronGrid();
-        stats = new StatisticSet(game);
-        preconfiguredGamePanel = new GrimeronPanel(grid);
-        preconfiguredStatPanel = new GrimeronStatisticPanel(stats);
-    }
-    
+    private void consoleInputFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consoleInputFieldKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            console.attemptCommand(consoleInputField.getText());
+            consoleInputField.setText("");
+        }
+
+        consoleOutputField.setText(console.getOutput());
+    }//GEN-LAST:event_consoleInputFieldKeyPressed
+
     private void clickableYesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickableYesMousePressed
         game.resetGame();
         restart = true;
-        waitingForRestart = false;
+        waitingForStart = false;
         try {
             Thread.sleep(5);
         } catch (InterruptedException ex) {
@@ -449,66 +217,71 @@ public class GrimeronFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_clickableYesMousePressed
 
     private void clickableNoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickableNoMousePressed
-        waitingForRestart = false;
+        waitingForStart = false;
         this.dispose();
     }//GEN-LAST:event_clickableNoMousePressed
 
-    private void consoleInputFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consoleInputFieldKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            console.attemptCommand(consoleInputField.getText());
-            consoleInputField.setText("");
-        }
-        
-        consoleOutputField.setText(console.getOutput());
-    }//GEN-LAST:event_consoleInputFieldKeyPressed
-
-    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        repaint();
-    }//GEN-LAST:event_formMouseEntered
-
-    private void gameStatsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_gameStatsStateChanged
-        updateStatistics(game);
-    }//GEN-LAST:event_gameStatsStateChanged
-
-    private void playerSelectorValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerSelectorValueChanged
-        try
-        {
-            Player selectedPlayer = (Player)playerSelector.getSelectedValue();
-
-            moveListModel.removeAllElements();
-
-            for(Move move: selectedPlayer.getMoveHistory())
-            {
-                moveListModel.addElement(move);
-            }
-        } catch(ClassCastException ex) {
-
-        } catch(NullPointerException ex) {
-
-        }
-
-        this.repaint();
-        System.out.println("Player selection event occured.");
-    }//GEN-LAST:event_playerSelectorValueChanged
-
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel clickableNo;
+    public javax.swing.JLabel clickableYes;
+    private javax.swing.JFormattedTextField consoleInputField;
+    private javax.swing.JEditorPane consoleOutputField;
+    private javax.swing.JLayeredPane gamePanel;
+    private org.arps.Grimeron.UI.Panels.GrimeronPanel grimeronPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane mainTabbedPanel;
+    private org.arps.Grimeron.UI.Panels.PlayerCreatorPanel playerCreatorPanel;
+    private javax.swing.JPanel playersPanel;
+    private org.arps.Grimeron.UI.Panels.GameSetupDialogue setupDialogue;
+    public javax.swing.JLabel text_restart;
+    // End of variables declaration//GEN-END:variables
     
-    private void updateGameStats()
-    {
-        playerListModel.removeAllElements();
-        
-        for(Player player: game.getRuleSet().getPlayers())
-        {
-            playerListModel.addElement(player);
-        } 
-        repaint();
+    private void initPreComponents(){
+        grid = new GrimeronGrid(game.getRuleSet().dimensionSize, game.getRuleSet().dimensionSize);
+        //stats = new StatisticSet(game);
+        preconfiguredGamePanel = new GrimeronPanel(grid);
+        //preconfiguredStatPanel = new StatisticPanel(stats);
     }
     
-    private void updateOverallStats()
+    public void lockToPlayerCreation()
     {
-        
+        mainTabbedPanel.setSelectedComponent(playersPanel);
+        mainTabbedPanel.setEnabledAt(mainTabbedPanel.indexOfComponent(gamePanel), false);
+    }
+    
+    public void unlockGame()
+    {
+        mainTabbedPanel.setEnabledAt(mainTabbedPanel.indexOfComponent(gamePanel), true);
+        mainTabbedPanel.setSelectedComponent(gamePanel);
+        this.restart = true;
+        this.waitingForStart = false;
+    }
+    
+    public void toggleResetText(boolean toggle){
+        this.clickableNo.setVisible(toggle);
+        this.clickableYes.setVisible(toggle);
+        this.text_restart.setVisible(toggle);
+    }
+
+    public GrimeronGrid getGrid() {
+        return grid;
+    }
+
+    public void setGrid(GrimeronGrid grid) {
+        this.grid = grid;
+    }
+    
+    public GrimeronPanel getGamePanel(){
+        return this.grimeronPanel;
     }
     
     public void updateConsole(){
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GrimeronFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         consoleOutputField.setText(console.getOutput());
     }
     
@@ -520,57 +293,20 @@ public class GrimeronFrame extends javax.swing.JFrame {
         this.restart = restart;
     }
 
-    public boolean isWaitingForRestart() {
-        return waitingForRestart;
+    public boolean isWaitingForStart() {
+        return waitingForStart;
     }
 
-    public void setWaitingForRestart(boolean waitingForRestart) {
-        this.waitingForRestart = waitingForRestart;
+    public void setWaitingForStart(boolean waitingForRestart) {
+        this.waitingForStart = waitingForRestart;
     }
-    
-    public void updateStatistics(Grimeron game){
-        stats.updateStatistics(game);
-        updateGameStats();
-        updateOverallStats();
-        repaint();
-    }
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel activeGamePAnel;
-    private javax.swing.JLabel averageLifspan;
-    private javax.swing.JLabel averagePlace;
-    public javax.swing.JLabel clickableNo;
-    public javax.swing.JLabel clickableYes;
-    private javax.swing.JFormattedTextField consoleInputField;
-    private javax.swing.JEditorPane consoleOutputField;
-    private javax.swing.JPanel dankabaseStatsPanel;
-    private javax.swing.JPanel gameInfoPAnel;
-    private javax.swing.JTabbedPane gameStats;
-    private org.arps.Grimeron.UI.GrimeronPanel grimeronPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane mainTabbedPanel;
-    private javax.swing.JLabel moveInfoText;
-    private javax.swing.JScrollPane moveStatScrollPane;
-    private javax.swing.JTabbedPane playerInfoPane;
-    private javax.swing.JPanel playerMoveInfoPanel;
-    private javax.swing.JList playerMoveSelector;
-    private javax.swing.JList playerSelector;
-    private javax.swing.JScrollPane playerSelectorScrollPane;
-    private javax.swing.JLabel playerWinCount;
-    private javax.swing.JPanel selectAPlayerPanel;
-    private javax.swing.JPanel statisticPanel;
-    private javax.swing.JLabel text_averagePlace;
-    private javax.swing.JLabel text_avgLifespan;
-    private javax.swing.JLabel text_playerWC;
-    public javax.swing.JLabel text_restart;
-    private javax.swing.JLabel text_selectPlayer;
-    // End of variables declaration//GEN-END:variables
 
+    private void setIcon() {
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/arps/Grimeron/UI/Images/G.png")));
+    }
+    
+    public void openSetup()
+    {
+        this.setupDialogue.setVisible(true);
+    }
 }

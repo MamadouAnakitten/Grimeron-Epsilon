@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.arps.Grimeron.Move;
-import org.arps.Grimeron.UI.GrimeronGrid;
+import org.arps.Grimeron.UI.Panels.GrimeronGrid;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.entity.Tile;
 import org.arps.Grimeron.utils.DBOperationHandler;
@@ -38,7 +38,6 @@ public class Bot extends Player{
     @Override
     public Move performMove(ArrayList<Tile> emptySquares, int turn)
     {
-        System.out.println(grid.getLiveTilesSurrounding(this.getTile()));
         ArrayList<Tile> potentialNextMoves = new ArrayList<>();
         
         float defaultWeight = (float) ((Player.Place.FIRST.getWeight() + Place.NONE.getWeight()) / 2.0);
@@ -64,7 +63,7 @@ public class Bot extends Player{
             }
         }
         
-        //Collections.shuffle(potentialNextMoves);
+        Collections.shuffle(potentialNextMoves);
         
         //Fills a hashmap of possible moves and their values in terms of move weight
         for(Tile nextTile: potentialNextMoves)
@@ -183,11 +182,6 @@ public class Bot extends Player{
                     foundTiles.remove(nextTile);              // Remove the tile from foundTiles.
                 }
             }
-            
-            //System.out.println(" \n \n");
-            //System.out.println(foundTiles);
-            //System.out.println(exclusion);
-            //System.out.println(" \n \n ");
             
             if(foundTiles.isEmpty())                          // If theres nothing else to find, break from the loop.
             {

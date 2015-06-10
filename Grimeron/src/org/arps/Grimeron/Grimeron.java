@@ -12,7 +12,7 @@ package org.arps.Grimeron;
 import org.arps.Grimeron.entity.Tile;
 import java.util.ArrayList;
 import org.arps.Grimeron.UI.GrimeronFrame;
-import org.arps.Grimeron.UI.GrimeronSetupFrame;
+import org.arps.Grimeron.UI.Panels.GameSetupDialogue;
 import org.arps.Grimeron.console.Console;
 import org.arps.Grimeron.console.commands.End;
 import org.arps.Grimeron.console.commands.Help;
@@ -29,7 +29,7 @@ import org.arps.Grimeron.utils.enums.PromptSet;
 public class Grimeron{
     
     private GrimeronFrame gameFrame;
-    private GrimeronSetupFrame setupFrame;
+    private GameSetupDialogue setupDialogue;
 
     private DBOperationHandler dbHandler;
     private RuleSet ruleSet;
@@ -46,15 +46,12 @@ public class Grimeron{
     {        
         console = new Console(this);      
         this.ruleSet = ruleSet;     
-        
-        gameFrame = new GrimeronFrame(this, console);
     }
     
     public void automatedRun()
     {
         registerCommands();
         setupGame();
-        enterGame();
         
         boolean gameRunning = true;
         
@@ -68,19 +65,19 @@ public class Grimeron{
     
     private boolean manageRestart()
     {
-        boolean waitingForRestart = gameFrame.isWaitingForRestart();
+        boolean waitingForRestart = gameFrame.isWaitingForStart();
         boolean shouldRestart = gameFrame.getRestart();
         
         while(waitingForRestart)
         {
-            waitingForRestart = gameFrame.isWaitingForRestart();
+            waitingForRestart = gameFrame.isWaitingForStart();
             shouldRestart = gameFrame.getRestart();
             
             if(shouldRestart && waitingForRestart == false)
             {
                 gameFrame.toggleResetText(false);
                 enterGame();
-                gameFrame.setWaitingForRestart(true);
+                gameFrame.setWaitingForStart(true);
                 return true;
             }
             
@@ -99,20 +96,14 @@ public class Grimeron{
         console.registerCommand(new End(this));
     }
     
-    
     public void setupGame()
     {
-        setupFrame = new GrimeronSetupFrame(this);
-        setupFrame.setVisible(true);
+        setupDialogue = new GameSetupDialogue(ruleSet);
+        setupDialogue.setVisible(true);
         
-        while(!setupFrame.isSetup())
-        {
-            Thread.yield();
-            
-        }
-        setupFrame.dispose();
-        
+        gameFrame = new GrimeronFrame(this, console);
         gameFrame.setVisible(true);
+        gameFrame.lockToPlayerCreation();
         
         if(dbHandler == null)
         {
@@ -121,7 +112,7 @@ public class Grimeron{
         }
         if(ruleSet.statisticMode == false)
         {
-            gameFrame.getTabbedPane().setEnabledAt(1, false);
+            //gameFrame.getTabbedPane().setEnabledAt(1, false);
         }
     }
     
@@ -142,7 +133,7 @@ public class Grimeron{
                 console.write(PromptSet.PROMPT_GAME_COMPLETE_COUNT + " " + (i+1));
                 if(ruleSet.statisticMode)
                 {
-                    gameFrame.updateStatistics(this);
+                    //gameFrame.updateStatistics(this);
                     console.write(PromptSet.UPDATE_STATISTICS + " :: Grimeron.EnterGame()");
                 }
                 if(i != ruleSet.rapidModeCount){
@@ -219,7 +210,7 @@ public class Grimeron{
                 
                 if(ruleSet.statisticMode)
                 {
-                    gameFrame.updateStatistics(this);
+                    //gameFrame.updateStatistics(this);
                 }
                 
                 try 

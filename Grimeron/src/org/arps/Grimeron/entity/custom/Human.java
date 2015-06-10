@@ -3,7 +3,7 @@ package org.arps.Grimeron.entity.custom;
 
 import java.util.ArrayList;
 import org.arps.Grimeron.Move;
-import org.arps.Grimeron.UI.GrimeronGrid;
+import org.arps.Grimeron.UI.Panels.GrimeronGrid;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.entity.Tile;
 

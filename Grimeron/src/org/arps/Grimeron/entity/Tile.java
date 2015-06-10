@@ -1,7 +1,7 @@
 package org.arps.Grimeron.entity;
 
 import java.awt.Color;
-import org.arps.Grimeron.UI.UITile;
+import org.arps.Grimeron.UI.Panels.UITile;
 
 /**
  *

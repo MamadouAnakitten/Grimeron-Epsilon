@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import org.arps.Grimeron.Move;
-import org.arps.Grimeron.UI.GrimeronGrid;
+import org.arps.Grimeron.UI.Panels.GrimeronGrid;
 
 /**
  * Abstract class outlining what a player will have.

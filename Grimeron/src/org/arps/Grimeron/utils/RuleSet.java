@@ -1,7 +1,7 @@
 package org.arps.Grimeron.utils;
 
 import java.util.ArrayList;
-import org.arps.Grimeron.UI.GrimeronGrid;
+import org.arps.Grimeron.UI.Panels.GrimeronGrid;
 import org.arps.Grimeron.entity.Tile;
 import org.arps.Grimeron.entity.Player;
 import org.arps.Grimeron.entity.Player.Place;
@@ -27,6 +27,8 @@ public class RuleSet {
     public boolean adminTestOverride = false;
    
     public int rapidModeCount = 0;
+    
+    public int dimensionSize = 11;
 
     public int delay = 10;
     
@@ -135,7 +137,7 @@ public class RuleSet {
         playerList.add(player);
         player.getTile().setColor(player.getColor());
     }
-
+    
     public void resetGame(GrimeronGrid newGrid) 
     {
         int previousX;
