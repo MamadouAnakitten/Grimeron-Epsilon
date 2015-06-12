@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import org.arps.Grimeron.Grimeron;
 import org.arps.Grimeron.UI.Panels.GrimeronPanel;
 import org.arps.Grimeron.console.Console;
+import org.arps.Grimeron.entity.Player;
+import org.arps.Grimeron.entity.Tile;
 
 /**
  *
@@ -76,6 +78,11 @@ public class GrimeronFrame extends javax.swing.JFrame {
         consoleOutputField.setSelectionColor(new java.awt.Color(204, 255, 204));
         jScrollPane2.setViewportView(consoleOutputField);
 
+        consoleInputField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consoleInputFieldActionPerformed(evt);
+            }
+        });
         consoleInputField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 consoleInputFieldKeyPressed(evt);
@@ -217,9 +224,15 @@ public class GrimeronFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_clickableYesMousePressed
 
     private void clickableNoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickableNoMousePressed
-        waitingForStart = false;
-        this.dispose();
+        waitingForStart = true;
+        restart = false;
+        resetGrid();
+        lockToPlayerCreation();
     }//GEN-LAST:event_clickableNoMousePressed
+
+    private void consoleInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consoleInputFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_consoleInputFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel clickableNo;
@@ -242,6 +255,19 @@ public class GrimeronFrame extends javax.swing.JFrame {
         //stats = new StatisticSet(game);
         preconfiguredGamePanel = new GrimeronPanel(grid);
         //preconfiguredStatPanel = new StatisticPanel(stats);
+    }
+    
+    public void resetGrid()
+    {
+        for(Tile tile: grid.getPieces())
+        {
+            tile.setState(Tile.State.OPEN);
+        }
+        
+        for(Player player: game.getRuleSet().getPlayers())
+        {
+            player.setTile(player.getStartingTile());
+        }
     }
     
     public void lockToPlayerCreation()
@@ -270,6 +296,7 @@ public class GrimeronFrame extends javax.swing.JFrame {
 
     public void setGrid(GrimeronGrid grid) {
         this.grid = grid;
+        this.grimeronPanel.setGrid(grid);
     }
     
     public GrimeronPanel getGamePanel(){

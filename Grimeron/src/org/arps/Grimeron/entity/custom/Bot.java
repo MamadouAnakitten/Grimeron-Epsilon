@@ -24,7 +24,7 @@ import org.arps.Grimeron.utils.DBOperationHandler;
  */
 public class Bot extends Player{
     public final DBOperationHandler opHandler;
-    public int defaultRecursionCount = 500;
+    public int defaultRecursionCount = 10;
     private final GrimeronGrid grid;
     
     //Bot Initialization
@@ -33,6 +33,15 @@ public class Bot extends Player{
         super(Type.BOT, tile, name);
         this.opHandler = opHandler;
         this.grid = grid;
+    }
+    
+    //Bot Initialization
+    public Bot(Tile tile, String name, DBOperationHandler opHandler, GrimeronGrid grid, int defaultRecursionCount)
+    {
+        super(Type.BOT, tile, name);
+        this.opHandler = opHandler;
+        this.grid = grid;
+        this.defaultRecursionCount = defaultRecursionCount;
     }
     
     @Override
@@ -61,6 +70,20 @@ public class Bot extends Player{
                     potentialNextMoves.add(eachTile);
                 }    
             }
+        }
+        
+        if(potentialNextMoves.size() == 1)
+        {
+            Move performedMove = null;
+        
+            //If still alive, moves towards the square it picked
+            if(this.isExistant()){
+                performedMove = new Move(this, this.getTile(), potentialNextMoves.get(0), turn);
+                this.addMoveToMoveHistory(performedMove);
+                this.move(potentialNextMoves.get(0));
+            }
+            
+            return performedMove;
         }
         
         Collections.shuffle(potentialNextMoves);
@@ -96,10 +119,6 @@ public class Bot extends Player{
         {
             Tile bestRatedTile = null;
          
-            //Start with the equations.
-            // f(x,y,z) = x/(y/z) where x = weight, y = potential moves count, z = recursionCount
-            //Variables being used: moveWeightValues, pathsizeValues, potentialMoves, defaultRecursionCount
-            //bestRatedTile = retrieveBestTileFromEquation(tripletAssociation);
             bestRatedTile = getBestTile(potentialNextMoves);
             
             Move performedMove = null;
@@ -171,7 +190,7 @@ public class Bot extends Player{
         int nextGen = 0;                                      // The number of the next generation.
         int highestGen = generation;                          // Highest Generation Reported.
         ArrayList<Tile> foundTiles;                           // The Live Tiles Surrounding 'tile'
-        for(int i=0; i<defaultRecursionCount; i++)            // Increment loop to maximum allowed recursions. (Should never reach that number.)
+        for(int genIncrement = generation; genIncrement<defaultRecursionCount; genIncrement++)            // Increment loop to maximum allowed recursions. (Should never reach that number.)
         {
             foundTiles = grid.getLiveTilesSurrounding(tile);  // Found tiles are the tiles that are alive around 'tile'.
 
@@ -195,6 +214,14 @@ public class Bot extends Player{
             }  
         }
         return highestGen;                                    // Return it.
+    }
+
+    public int getDefaultRecursionCount() {
+        return defaultRecursionCount;
+    }
+
+    public void setDefaultRecursionCount(int defaultRecursionCount) {
+        this.defaultRecursionCount = defaultRecursionCount;
     }
     
     private class TripleSet

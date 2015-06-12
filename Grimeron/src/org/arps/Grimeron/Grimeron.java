@@ -29,7 +29,6 @@ import org.arps.Grimeron.utils.enums.PromptSet;
 public class Grimeron{
     
     private GrimeronFrame gameFrame;
-    private GameSetupDialogue setupDialogue;
 
     private DBOperationHandler dbHandler;
     private RuleSet ruleSet;
@@ -98,7 +97,7 @@ public class Grimeron{
     
     public void setupGame()
     {
-        setupDialogue = new GameSetupDialogue(ruleSet);
+        GameSetupDialogue setupDialogue = new GameSetupDialogue(ruleSet);
         setupDialogue.setVisible(true);
         
         gameFrame = new GrimeronFrame(this, console);

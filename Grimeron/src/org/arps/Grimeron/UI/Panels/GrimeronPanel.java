@@ -5,13 +5,15 @@
  */
 package org.arps.Grimeron.UI.Panels;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import org.arps.Grimeron.Move;
 
 /**
  *
  * @author richa_000
  */
-public class GrimeronPanel extends javax.swing.JPanel {
+public class GrimeronPanel extends javax.swing.JPanel implements KeyListener {
 
     private final GrimeronGrid retrievedGrid;
     private int round = 0;
@@ -32,12 +34,9 @@ public class GrimeronPanel extends javax.swing.JPanel {
     }
     
     public void updateInformation(int newRound, Move nextMove){
-        this.round = newRound;
-        this.lastMove = nextMove;
         roundText.setText(Integer.toString(round));
         if(lastMove != null){
-            String moveDescription = lastMove.toString();
-            moveDataText.setText(moveDescription);
+            moveDataText.setText(retrievedGrid.getLiveTiles().size() + " tile remaining.");
         }
     }
 
@@ -71,10 +70,10 @@ public class GrimeronPanel extends javax.swing.JPanel {
         roundText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         subjectMove.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        subjectMove.setText("Last Move: ");
+        subjectMove.setText("Moves Left:");
 
         moveDataText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        moveDataText.setText("Move Data Will Show Here");
+        moveDataText.setText("Game has not begun.");
 
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
@@ -129,7 +128,6 @@ public class GrimeronPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.arps.Grimeron.UI.Panels.GrimeronGrid grimeronGrid;
     private javax.swing.JPanel infoPanel;
@@ -145,6 +143,37 @@ public class GrimeronPanel extends javax.swing.JPanel {
 
     public void setGrid(GrimeronGrid grimeronGrid) {
         this.grimeronGrid = grimeronGrid;
+    }
+    
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch(e.getKeyCode())
+        {
+            case KeyEvent.VK_NUMPAD1:
+                break;
+            case KeyEvent.VK_NUMPAD2:
+                break;
+            case KeyEvent.VK_NUMPAD3:
+                break;
+            case KeyEvent.VK_NUMPAD4:
+                break;
+            case KeyEvent.VK_NUMPAD6:
+                break;
+            case KeyEvent.VK_NUMPAD7:
+                break;
+            case KeyEvent.VK_NUMPAD8:
+                break;
+            case KeyEvent.VK_NUMPAD9:
+                break;
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
     }
     
 }

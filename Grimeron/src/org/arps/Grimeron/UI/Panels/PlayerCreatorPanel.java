@@ -6,6 +6,8 @@
 package org.arps.Grimeron.UI.Panels;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -42,7 +44,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         this.dbHandler = game.getDBHandler();
         this.ruleSet = game.getRuleSet();
         initComponents();
-        this.resetLocationSelector();
+        this.resetLocationSelector(grid);
         this.resetPlayerSelector();
         this.pc_botRadioButton.setSelected(true);
     }
@@ -105,6 +107,11 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         });
 
         enterSetup.setText("Re-Enter Setup");
+        enterSetup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterSetupActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(221, 221, 221)));
 
@@ -399,7 +406,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         }
 
         if(type.equals(Player.Type.BOT)){
-            createdPlayer = new Bot(startingTile, name, dbHandler, grid);
+            createdPlayer = new Bot(startingTile, name, dbHandler, grid, (int) Math.pow(grid.getMaxX(), 2));
         }
 
         if(type.equals(Player.Type.HUMAN)){
@@ -417,6 +424,10 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void beginGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginGameActionPerformed
+        if(!ruleSet.adminTestOverride)
+        {
+            verify();
+        }
         game.getGameFrame().unlockGame();
     }//GEN-LAST:event_beginGameActionPerformed
 
@@ -439,6 +450,22 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
             playerStartingY.setText("No Player Selected");
         }
     }//GEN-LAST:event_playerListValueChanged
+
+    private void enterSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterSetupActionPerformed
+        Dimension loggedGridSize = new Dimension(game.getGameFrame().getGrid().getMaxX(), game.getGameFrame().getGrid().getMaxY());
+        Dimension newGridSize;
+        GameSetupDialogue gameSetup = new GameSetupDialogue(ruleSet);
+        gameSetup.setVisible(true);
+        newGridSize = new Dimension(ruleSet.dimensionSize, ruleSet.dimensionSize);
+        
+        if(!loggedGridSize.equals(newGridSize) && ruleSet.dimensionSize < 40)
+        {
+            GrimeronGrid newGrid = new GrimeronGrid(ruleSet.dimensionSize, ruleSet.dimensionSize);
+            transferPlayers(newGrid);
+            game.getGameFrame().setGrid(newGrid);
+            StartingLocation.reassignLocations(newGrid);
+        }
+    }//GEN-LAST:event_enterSetupActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -493,13 +520,13 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         pc_botRadioButton.setSelected(true);
         pc_customXSelector.setText("Enter #");
         pc_customYSelector.setText("Enter #");
-        resetLocationSelector();
+        resetLocationSelector(this.grid);
         pc_locationCombo.setSelectedIndex(0);
         pc_playerColorSelector.setColor(new Color(random.nextInt(225), random.nextInt(225), random.nextInt(225)));
         pc_playerNameSelector.setText("Name");
     }
     
-    private void resetLocationSelector()
+    private void resetLocationSelector(GrimeronGrid grid)
     {
         pc_locationCombo.removeAllItems();
         ArrayList<Tile> liveTiles = grid.getLiveTiles();
@@ -553,6 +580,17 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
             this.y = y;
         }
         
+        public void setCoord(Tile tile)
+        {
+            this.x = tile.getGameX();
+            this.y = tile.getGameY();
+        }
+        
+        public Point getCoord()
+        {
+            return new Point(this.x, this.y);
+        }
+        
         public int getX(){
             return this.x;
         }
@@ -573,6 +611,31 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
             this.description = description;
         }
         
+        /**
+         * Attempts to find a starting location given the x and y.
+         * @param x
+         * @param y
+         * @return
+         */
+        public StartingLocation tryGetStartingLocationOf(int x, int y)
+        {
+            for(StartingLocation loc: StartingLocation.values())
+            {
+                if(x == loc.x && y == loc.y) return loc;
+            }
+            CUSTOM.setCoord(x, y);
+            return CUSTOM;
+        }
+        
+        public static void reassignLocations(GrimeronGrid grid)
+        {
+            StartingLocation.LOWERLEFT.setCoord(grid.getBottomLeft());
+            StartingLocation.LOWERRIGHT.setCoord(grid.getBottomRight());
+            StartingLocation.UPPERLEFT.setCoord(grid.getTopLeft());
+            StartingLocation.UPPERRIGHT.setCoord(grid.getTopRight());
+            StartingLocation.CUSTOM.setCoord(0, 0);
+        }
+        
         public static StartingLocation getLocationEnumOf(String description){
             for(StartingLocation locationEnum: StartingLocation.values()){
                 if(locationEnum.getDescription().equals(description)){
@@ -586,8 +649,46 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
     public void reload()
     {
         this.resetPlayerSelector();
-        this.resetLocationSelector();
+        this.resetLocationSelector(this.grid);
         this.resetPlayerCreator();
+    }
+    
+    public void transferPlayers(GrimeronGrid newGrid)
+    {
+        int playerX, playerY;
+        int locX, locY;
+        
+        
+        for(Player player: ruleSet.getPlayers())
+        {
+            playerX = player.getTile().getGameX(); 
+            playerY = player.getTile().getGameY();
+            
+            for(StartingLocation loc: StartingLocation.values())
+            {
+                locX = loc.getX();
+                locY = loc.getY();
+                
+                if(playerX == locX && playerY == locY)
+                {
+                    if(loc.equals(StartingLocation.LOWERLEFT)) player.setTile(newGrid.getBottomLeft());
+                    if(loc.equals(StartingLocation.LOWERRIGHT)) player.setTile(newGrid.getBottomRight());
+                    if(loc.equals(StartingLocation.UPPERLEFT)) player.setTile(newGrid.getTopLeft());
+                    if(loc.equals(StartingLocation.UPPERRIGHT)) player.setTile(newGrid.getTopRight());
+                    else{
+                        if(playerX < newGrid.getMaxX() && playerY < newGrid.getMaxY())
+                        {
+                            player.setTile(newGrid.getTileAt(playerX, playerY));
+                        }else{
+                            Random random = new Random();
+                            player.setTile(newGrid.getTileAt(random.nextInt(newGrid.getMaxX()), random.nextInt(newGrid.getMaxY())));
+                        }
+                    }
+                }      
+            }
+            
+            player.getTile().setColor(player.getColor());
+        }
     }
     
     private void verify()

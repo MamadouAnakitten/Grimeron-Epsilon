@@ -6,7 +6,6 @@
  */
 package org.arps.Grimeron.UI.Panels;
 
-import org.arps.Grimeron.UI.Panels.UITile;
 import org.arps.Grimeron.entity.Player;
 import java.awt.Color;
 import java.awt.GridBagConstraints;

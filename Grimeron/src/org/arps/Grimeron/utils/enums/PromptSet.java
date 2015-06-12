@@ -12,7 +12,7 @@ package org.arps.Grimeron.utils.enums;
 public enum PromptSet {
     
     CONSOLE_UNRECOGNIZED_COMMAND("The command you entered wasn't recognized!", PromptType.ERROR),
-    DB_NULL_INCOGNITO_ENABLE("There is no database handler! Enabling incognito..", PromptType.ERROR),
+    DB_NULL_INCOGNITO_ENABLE("Could not connect to the database. Enabling incognito..", PromptType.ERROR),
     DB_NULL_INCOGNITO_DISABLE("The database handler is no longer null. Disabling incognito..", PromptType.INFO),
     INSUFFICIENT_PLAYER_COUNT("Not enough players! Adding bots..", PromptType.WARNING),
     PROMPT_GAME_COMPLETE_COUNT("Game completed:", PromptType.INFO),

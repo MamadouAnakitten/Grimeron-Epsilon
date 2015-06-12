@@ -36,10 +36,6 @@ public class UITile extends JPanel implements MouseListener{
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
     
-    //
-    //  To make sure the sensitivity maintains decent sensitivty,
-    //  pseudo clicks are created in case the mouse click listener failed to capture in time.
-    //
     @Override
     public void mouseClicked(MouseEvent e) {
     }

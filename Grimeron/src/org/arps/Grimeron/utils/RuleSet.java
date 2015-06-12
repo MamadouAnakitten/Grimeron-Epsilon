@@ -23,7 +23,7 @@ public class RuleSet {
     public boolean statisticMode = false;
     public boolean rapidMode = false;
     
-    public boolean rapidGraphicOverrideEnabled = false;
+    public boolean rapidGraphicOverrideEnabled = true;
     public boolean adminTestOverride = false;
    
     public int rapidModeCount = 0;

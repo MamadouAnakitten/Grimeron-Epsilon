@@ -77,16 +77,15 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         generalPanel = new javax.swing.JLayeredPane();
         rapidCheckbox = new javax.swing.JCheckBox();
-        gameCountInput = new javax.swing.JTextField();
-        graphicOverrideEnabled = new javax.swing.JCheckBox();
         incognitoCheckBox = new javax.swing.JCheckBox();
         statisticModeSelection = new javax.swing.JCheckBox();
         gridDimensionField = new javax.swing.JFormattedTextField();
         gridDimensionText = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
-        adminOverride = new javax.swing.JCheckBox();
         rapidDelaySlider = new javax.swing.JSlider();
-        jLabel7 = new javax.swing.JLabel();
+        text_rapiddelay = new javax.swing.JLabel();
+        gameCountInput = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
         text_advancedsettings = new javax.swing.JLabel();
         text_advanced_hide = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
@@ -107,6 +106,8 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         text_teststatus = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
+        adminOverride = new javax.swing.JCheckBox();
+        graphicOverrideEnabled = new javax.swing.JCheckBox();
         submitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -137,23 +138,6 @@ public class GameSetupDialogue extends javax.swing.JDialog {
             }
         });
 
-        gameCountInput.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gameCountInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        gameCountInput.setText("5");
-        gameCountInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gameCountInputActionPerformed(evt);
-            }
-        });
-
-        graphicOverrideEnabled.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        graphicOverrideEnabled.setText("Enable Rapid Graphics Override (Show Graphics)");
-        graphicOverrideEnabled.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                graphicOverrideEnabledActionPerformed(evt);
-            }
-        });
-
         incognitoCheckBox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         incognitoCheckBox.setText("Incognito Mode: Disables database learning and keeps AI knowledge constant.");
         incognitoCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -173,18 +157,28 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         gridDimensionField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         gridDimensionField.setText("11");
 
-        gridDimensionText.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        gridDimensionText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        gridDimensionText.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         gridDimensionText.setText("Grid Dimension");
 
-        adminOverride.setText("Don't Check Settings Before Running Game");
-
-        rapidDelaySlider.setMinimum(1);
+        rapidDelaySlider.setMajorTickSpacing(10);
+        rapidDelaySlider.setMinimum(5);
+        rapidDelaySlider.setMinorTickSpacing(5);
         rapidDelaySlider.setPaintLabels(true);
         rapidDelaySlider.setPaintTicks(true);
-        rapidDelaySlider.setValue(25);
+        rapidDelaySlider.setSnapToTicks(true);
+        rapidDelaySlider.setDoubleBuffered(true);
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel7.setText("Rapid Graphic Delay");
+        text_rapiddelay.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_rapiddelay.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        text_rapiddelay.setText("Rapid Graphic Delay (ms)");
+
+        gameCountInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        gameCountInput.setText("5");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel2.setText("Rapid Mode Game Count");
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
         generalPanel.setLayout(generalPanelLayout);
@@ -193,64 +187,63 @@ public class GameSetupDialogue extends javax.swing.JDialog {
             .addGroup(generalPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rapidCheckbox)
+                    .addComponent(incognitoCheckBox)
+                    .addComponent(statisticModeSelection)
                     .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addComponent(rapidCheckbox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gameCountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(graphicOverrideEnabled)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rapidDelaySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(generalPanelLayout.createSequentialGroup()
+                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(gridDimensionText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(text_rapiddelay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(incognitoCheckBox)
-                            .addComponent(statisticModeSelection)
-                            .addGroup(generalPanelLayout.createSequentialGroup()
-                                .addComponent(gridDimensionText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(adminOverride)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(gameCountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rapidDelaySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(412, Short.MAX_VALUE))
             .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         generalPanelLayout.setVerticalGroup(
             generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(rapidCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(graphicOverrideEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gameCountInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rapidDelaySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                .addComponent(rapidCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(incognitoCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statisticModeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(generalPanelLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(gridDimensionText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(generalPanelLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(gridDimensionField)))
+                .addGap(6, 6, 6)
+                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(gameCountInput)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(gridDimensionText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adminOverride))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(generalPanelLayout.createSequentialGroup()
+                        .addComponent(text_rapiddelay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(125, 125, 125))
+                    .addGroup(generalPanelLayout.createSequentialGroup()
+                        .addComponent(rapidDelaySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(90, 90, 90))))
         );
         generalPanel.setLayer(rapidCheckbox, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(gameCountInput, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(graphicOverrideEnabled, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(incognitoCheckBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(statisticModeSelection, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(gridDimensionField, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(gridDimensionText, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(jSeparator7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(adminOverride, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(rapidDelaySlider, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(text_rapiddelay, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(gameCountInput, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         text_advancedsettings.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         text_advancedsettings.setText("Advanced Settings");
@@ -313,6 +306,15 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel8.setText("Database Port");
 
+        adminOverride.setText("Don't Check Settings Before Running Game");
+
+        graphicOverrideEnabled.setText("Disable Rapid Mode Graphics");
+        graphicOverrideEnabled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicOverrideEnabledActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout advancedPanelLayout = new javax.swing.GroupLayout(advancedPanel);
         advancedPanel.setLayout(advancedPanelLayout);
         advancedPanelLayout.setHorizontalGroup(
@@ -347,6 +349,10 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                     .addComponent(useConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(testDBBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(text_teststatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adminOverride)
+                    .addComponent(graphicOverrideEnabled))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         advancedPanelLayout.setVerticalGroup(
@@ -358,14 +364,16 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                     .addComponent(urlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(useConnection))
+                    .addComponent(useConnection)
+                    .addComponent(adminOverride))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(testDBBtn)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(graphicOverrideEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -425,7 +433,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -452,7 +460,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
     }//GEN-LAST:event_rapidCheckboxActionPerformed
 
     private void graphicOverrideEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicOverrideEnabledActionPerformed
-        ruleSet.rapidGraphicOverrideEnabled = true;
+        ruleSet.rapidGraphicOverrideEnabled = false;
     }//GEN-LAST:event_graphicOverrideEnabledActionPerformed
 
     private void incognitoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incognitoCheckBoxActionPerformed
@@ -529,26 +537,22 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
 
-    private void gameCountInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameCountInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gameCountInputActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox adminOverride;
     private javax.swing.JPanel advancedPanel;
     private javax.swing.JComboBox driverSelector;
-    private javax.swing.JTextField gameCountInput;
+    private javax.swing.JFormattedTextField gameCountInput;
     private javax.swing.JLayeredPane generalPanel;
     private javax.swing.JCheckBox graphicOverrideEnabled;
     private javax.swing.JFormattedTextField gridDimensionField;
     private javax.swing.JLabel gridDimensionText;
     private javax.swing.JCheckBox incognitoCheckBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -568,6 +572,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
     private javax.swing.JLabel text_advancedsettings;
     private javax.swing.JLabel text_general_hide;
     private javax.swing.JLabel text_generalsettings;
+    private javax.swing.JLabel text_rapiddelay;
     private javax.swing.JLabel text_teststatus;
     private javax.swing.JFormattedTextField urlField;
     private javax.swing.JCheckBox useConnection;

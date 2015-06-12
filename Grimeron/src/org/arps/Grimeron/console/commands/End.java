@@ -23,7 +23,8 @@ public class End extends Command{
     public String onExecute(Console invoker)
     {
         game.getGameFrame().dispose();
-        
+        game.getGameFrame().setRestart(false);
+        game.getGameFrame().setWaitingForStart(false);
         return "";
     }
     
