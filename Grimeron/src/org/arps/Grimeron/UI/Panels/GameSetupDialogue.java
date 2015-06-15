@@ -28,24 +28,36 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         super(parent, modal);
         this.ruleSet = rules;
         initComponents();
+        preinitialize();
     }
-    
+      
     public GameSetupDialogue(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.ruleSet = new RuleSet();
         initComponents();
+        preinitialize();
     }
     
     public GameSetupDialogue(RuleSet ruleSet) {
         super(new Frame(), true);
         this.ruleSet = ruleSet;
         initComponents();
+        preinitialize();
     }
     
     public GameSetupDialogue() {
         super(new Frame(), true);
         this.ruleSet = new RuleSet();
         initComponents();
+        preinitialize();
+    }
+    
+    private void preinitialize()
+    {
+        this.gameCountInput.setEnabled(false);
+        this.rapidDelaySlider.setEnabled(false);
+        this.statisticModeSelection.setEnabled(false);
+        this.togglePanel(advancedPanel, text_advanced_hide);
     }
 
     public void togglePanel(JComponent panel, JLabel hideText)
@@ -147,7 +159,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         });
 
         statisticModeSelection.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        statisticModeSelection.setText("Statistic Mode: (Requires Rapid Mode) Generates statistics chart alongside simulated games.");
+        statisticModeSelection.setText("Statistic Mode: Generates statistics chart alongside simulated games.");
         statisticModeSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statisticModeSelectionActionPerformed(evt);
@@ -200,7 +212,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                             .addComponent(gameCountInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(gridDimensionField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rapidDelaySlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(412, Short.MAX_VALUE))
+                .addContainerGap(490, Short.MAX_VALUE))
             .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         generalPanelLayout.setVerticalGroup(
@@ -456,19 +468,21 @@ public class GameSetupDialogue extends javax.swing.JDialog {
     }//GEN-LAST:event_text_general_hideMousePressed
 
     private void rapidCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rapidCheckboxActionPerformed
-        ruleSet.rapidMode = true;
+        ruleSet.rapidMode = rapidCheckbox.isSelected();
+        this.gameCountInput.setEnabled(rapidCheckbox.isSelected());
+        this.rapidDelaySlider.setEnabled(rapidCheckbox.isSelected());
     }//GEN-LAST:event_rapidCheckboxActionPerformed
 
     private void graphicOverrideEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicOverrideEnabledActionPerformed
-        ruleSet.rapidGraphicOverrideEnabled = false;
+        ruleSet.rapidGraphicOverrideEnabled = graphicOverrideEnabled.isEnabled();
     }//GEN-LAST:event_graphicOverrideEnabledActionPerformed
 
     private void incognitoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incognitoCheckBoxActionPerformed
-        ruleSet.incognitoMode = true;
+        ruleSet.incognitoMode = incognitoCheckBox.isEnabled();
     }//GEN-LAST:event_incognitoCheckBoxActionPerformed
 
     private void statisticModeSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticModeSelectionActionPerformed
-        ruleSet.statisticMode = true;
+        ruleSet.statisticMode = statisticModeSelection.isEnabled();
     }//GEN-LAST:event_statisticModeSelectionActionPerformed
 
     private void text_advanced_hideMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_text_advanced_hideMousePressed
@@ -536,7 +550,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         
         this.dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox adminOverride;
     private javax.swing.JPanel advancedPanel;

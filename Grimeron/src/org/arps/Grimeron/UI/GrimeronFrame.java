@@ -177,14 +177,12 @@ public class GrimeronFrame extends javax.swing.JFrame {
         playersPanel.setLayout(playersPanelLayout);
         playersPanelLayout.setHorizontalGroup(
             playersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(playersPanelLayout.createSequentialGroup()
-                .addComponent(playerCreatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 45, Short.MAX_VALUE))
+            .addComponent(playerCreatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1307, Short.MAX_VALUE)
         );
         playersPanelLayout.setVerticalGroup(
             playersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(playersPanelLayout.createSequentialGroup()
-                .addComponent(playerCreatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(playerCreatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 161, Short.MAX_VALUE))
         );
 
@@ -279,6 +277,7 @@ public class GrimeronFrame extends javax.swing.JFrame {
     public void unlockGame()
     {
         mainTabbedPanel.setEnabledAt(mainTabbedPanel.indexOfComponent(gamePanel), true);
+        mainTabbedPanel.setEnabledAt(mainTabbedPanel.indexOfComponent(playersPanel), false);
         mainTabbedPanel.setSelectedComponent(gamePanel);
         this.restart = true;
         this.waitingForStart = false;

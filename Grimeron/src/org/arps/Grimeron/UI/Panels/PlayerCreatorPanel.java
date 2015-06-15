@@ -98,8 +98,10 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         pc_customYSelector = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         pc_playerNameSelector = new javax.swing.JTextField();
+        deleteButton = new javax.swing.JButton();
+        endGameButton = new javax.swing.JButton();
 
-        beginGame.setText("Lock-In Players and Begin Game");
+        beginGame.setText("Begin Game");
         beginGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 beginGameActionPerformed(evt);
@@ -107,6 +109,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         });
 
         enterSetup.setText("Re-Enter Setup");
+        enterSetup.setEnabled(false);
         enterSetup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterSetupActionPerformed(evt);
@@ -166,8 +169,8 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(playerName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(playerColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(playerType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(playerType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(playerColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -178,7 +181,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(playerStartingY)))
-                        .addGap(0, 265, Short.MAX_VALUE)))
+                        .addGap(0, 270, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -318,25 +321,41 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        deleteButton.setText("Delete Player");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        endGameButton.setText("End Game");
+        endGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                endGameButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(playerCreatorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(beginGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(enterSetup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator1)
-                    .addComponent(enterSetup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(endGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -355,11 +374,15 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(beginGame)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enterSetup))
+                        .addComponent(enterSetup)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(endGameButton))
                     .addComponent(playerCreatorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -428,6 +451,10 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         {
             verify();
         }
+        for(Player player: ruleSet.getPlayers())
+        {
+            player.getTile().getUITile().repaint();
+        }
         game.getGameFrame().unlockGame();
     }//GEN-LAST:event_beginGameActionPerformed
 
@@ -442,7 +469,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
             playerStartingX.setText(Integer.toString(selectedPlayer.getTile().getGameX()));
             playerStartingY.setText(Integer.toString(selectedPlayer.getTile().getGameY()));
             
-        } catch (ClassCastException ex) {
+        } catch (ClassCastException | NullPointerException ex) {
             playerName.setText("No Player Selected");
             playerType.setText("No Player Selected");
             playerColor.setBackground(Color.LIGHT_GRAY);
@@ -467,11 +494,35 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_enterSetupActionPerformed
 
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try{
+            Player deletee = (Player) playerList.getSelectedValue();
+            int deleteeIndex = playerList.getSelectedIndex();
+            
+            ruleSet.removePlayer(deletee);
+            playerListModel.remove(deleteeIndex);
+            
+            resetPlayerSelector();
+            resetPlayerInfo();
+            resetLocationSelector(grid);
+            resetPlayerCreator();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return;
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void endGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endGameButtonActionPerformed
+        game.getGameFrame().dispose();
+    }//GEN-LAST:event_endGameButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton beginGame;
     private javax.swing.JLabel customXLabel;
     private javax.swing.JLabel customYLabel;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton endGameButton;
     private javax.swing.JButton enterSetup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -512,6 +563,15 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         {
             playerListModel.addElement(player);
         }
+    }
+    
+    private void resetPlayerInfo()
+    {
+        this.playerName.setText("No Player Selected.");
+        this.playerColor.setBackground(Color.LIGHT_GRAY);
+        this.playerStartingX.setText("No Player Selected.");
+        this.playerStartingY.setText("No Player Selected.");
+        this.playerType.setText("No Player Selected.");
     }
     
     private void resetPlayerCreator()
@@ -702,7 +762,6 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
             ruleSet.getPlayers().get(0).getTile().setState(Tile.State.OPEN);
             ruleSet.getPlayers().get(0).setStartingTile(grid.getTopLeft());
             ruleSet.getPlayers().get(0).setTile(grid.getTopLeft());
-            
         }
         
         if(ruleSet.rapidMode)

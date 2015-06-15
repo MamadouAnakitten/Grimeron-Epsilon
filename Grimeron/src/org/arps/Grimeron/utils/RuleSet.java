@@ -138,6 +138,12 @@ public class RuleSet {
         player.getTile().setColor(player.getColor());
     }
     
+    public void removePlayer(Player player)
+    {
+        playerList.remove(player);
+        player.getTile().setState(Tile.State.OPEN);
+    }
+    
     public void resetGame(GrimeronGrid newGrid) 
     {
         int previousX;
