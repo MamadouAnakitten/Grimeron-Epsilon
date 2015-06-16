@@ -44,6 +44,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         this.dbHandler = game.getDBHandler();
         this.ruleSet = game.getRuleSet();
         initComponents();
+        this.deleteButton.setEnabled(false);
         this.resetLocationSelector(grid);
         this.resetPlayerSelector();
         this.pc_botRadioButton.setSelected(true);
@@ -131,8 +132,6 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel5.setText("Player's Color: ");
 
-        playerColor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         javax.swing.GroupLayout playerColorLayout = new javax.swing.GroupLayout(playerColor);
         playerColor.setLayout(playerColorLayout);
         playerColorLayout.setHorizontalGroup(
@@ -141,7 +140,7 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         );
         playerColorLayout.setVerticalGroup(
             playerColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 12, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -196,9 +195,9 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(playerType))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(playerColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(playerColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -444,6 +443,8 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         playerListModel.addElement(createdPlayer);
         
         resetPlayerCreator();
+        
+        this.deleteButton.setEnabled(true);
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void beginGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginGameActionPerformed
@@ -507,7 +508,6 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
             resetLocationSelector(grid);
             resetPlayerCreator();
         } catch (Exception ex) {
-            ex.printStackTrace();
             return;
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
@@ -563,12 +563,17 @@ public class PlayerCreatorPanel extends javax.swing.JPanel {
         {
             playerListModel.addElement(player);
         }
+        
+        if(game.getRuleSet().getPlayers().isEmpty())
+        {
+            this.deleteButton.setEnabled(false);
+        }
     }
     
     private void resetPlayerInfo()
     {
         this.playerName.setText("No Player Selected.");
-        this.playerColor.setBackground(Color.LIGHT_GRAY);
+        this.playerColor.setBackground(new Color(240,240,240));
         this.playerStartingX.setText("No Player Selected.");
         this.playerStartingY.setText("No Player Selected.");
         this.playerType.setText("No Player Selected.");

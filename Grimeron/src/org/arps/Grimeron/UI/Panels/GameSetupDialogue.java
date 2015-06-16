@@ -8,8 +8,7 @@ package org.arps.Grimeron.UI.Panels;
 import java.awt.Color;
 import java.awt.Frame;
 import java.sql.Connection;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
+import javax.swing.*;
 import org.arps.Grimeron.utils.DBConnector;
 import org.arps.Grimeron.utils.RuleSet;
 
@@ -58,6 +57,8 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         this.rapidDelaySlider.setEnabled(false);
         this.statisticModeSelection.setEnabled(false);
         this.togglePanel(advancedPanel, text_advanced_hide);
+        
+        this.dynamictext_rapidhelp = new JLabel("This forces all players to be bots and plays them against each other.");
     }
 
     public void togglePanel(JComponent panel, JLabel hideText)
@@ -97,26 +98,26 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         rapidDelaySlider = new javax.swing.JSlider();
         text_rapiddelay = new javax.swing.JLabel();
         gameCountInput = new javax.swing.JFormattedTextField();
-        jLabel2 = new javax.swing.JLabel();
+        text_rapid_count = new javax.swing.JLabel();
         text_advancedsettings = new javax.swing.JLabel();
         text_advanced_hide = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         advancedPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        text_db_url = new javax.swing.JLabel();
+        text_db_driver = new javax.swing.JLabel();
         urlField = new javax.swing.JFormattedTextField();
         portField = new javax.swing.JFormattedTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        text_db_username = new javax.swing.JLabel();
+        text_db_password = new javax.swing.JLabel();
         usernameField = new javax.swing.JFormattedTextField();
         driverSelector = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
+        text_db_name = new javax.swing.JLabel();
         nameField = new javax.swing.JFormattedTextField();
         useConnection = new javax.swing.JCheckBox();
         testDBBtn = new javax.swing.JButton();
         text_teststatus = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        text_db_port = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         adminOverride = new javax.swing.JCheckBox();
         graphicOverrideEnabled = new javax.swing.JCheckBox();
@@ -144,6 +145,14 @@ public class GameSetupDialogue extends javax.swing.JDialog {
 
         rapidCheckbox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rapidCheckbox.setText("Enable Rapid Mode");
+        rapidCheckbox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rapidCheckboxMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rapidCheckboxMouseExited(evt);
+            }
+        });
         rapidCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rapidCheckboxActionPerformed(evt);
@@ -188,9 +197,9 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         gameCountInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         gameCountInput.setText("5");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel2.setText("Rapid Mode Game Count");
+        text_rapid_count.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_rapid_count.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        text_rapid_count.setText("Rapid Mode Game Count");
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
         generalPanel.setLayout(generalPanelLayout);
@@ -204,7 +213,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                     .addComponent(statisticModeSelection)
                     .addGroup(generalPanelLayout.createSequentialGroup()
                         .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(text_rapid_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(gridDimensionText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(text_rapiddelay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -236,7 +245,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                 .addGap(6, 6, 6)
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(gameCountInput)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(text_rapid_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(generalPanelLayout.createSequentialGroup()
@@ -255,7 +264,7 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         generalPanel.setLayer(rapidDelaySlider, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(text_rapiddelay, javax.swing.JLayeredPane.DEFAULT_LAYER);
         generalPanel.setLayer(gameCountInput, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        generalPanel.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        generalPanel.setLayer(text_rapid_count, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         text_advancedsettings.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         text_advancedsettings.setText("Advanced Settings");
@@ -270,11 +279,11 @@ public class GameSetupDialogue extends javax.swing.JDialog {
 
         advancedPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("Database URL");
+        text_db_url.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_db_url.setText("Database URL");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel3.setText("DB Driver");
+        text_db_driver.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_db_driver.setText("DB Driver");
 
         urlField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         urlField.setText("URL");
@@ -282,19 +291,19 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         portField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         portField.setText("3306");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel4.setText("DB Username");
+        text_db_username.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_db_username.setText("DB Username");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel5.setText("DB Password");
+        text_db_password.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_db_password.setText("DB Password");
 
         usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         usernameField.setText("Grimeron");
 
         driverSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "JDBC / JNDI", "Derby" }));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel6.setText("Database Name");
+        text_db_name.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_db_name.setText("Database Name");
 
         nameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nameField.setText("Name");
@@ -315,8 +324,8 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         text_teststatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         text_teststatus.setText("Status: No Connection");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel8.setText("Database Port");
+        text_db_port.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        text_db_port.setText("Database Port");
 
         adminOverride.setText("Don't Check Settings Before Running Game");
 
@@ -334,9 +343,9 @@ public class GameSetupDialogue extends javax.swing.JDialog {
             .addGroup(advancedPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(text_db_url)
+                    .addComponent(text_db_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(text_db_port, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17)
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(portField)
@@ -346,14 +355,14 @@ public class GameSetupDialogue extends javax.swing.JDialog {
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(advancedPanelLayout.createSequentialGroup()
                         .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3))
+                            .addComponent(text_db_password)
+                            .addComponent(text_db_driver))
                         .addGap(18, 18, 18)
                         .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(driverSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(passwordField)))
                     .addGroup(advancedPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(text_db_username)
                         .addGap(18, 18, 18)
                         .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,25 +381,25 @@ public class GameSetupDialogue extends javax.swing.JDialog {
             .addGroup(advancedPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(text_db_url)
                     .addComponent(urlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
+                    .addComponent(text_db_username)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(useConnection)
                     .addComponent(adminOverride))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
+                    .addComponent(text_db_password)
                     .addComponent(testDBBtn)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(text_db_port, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(graphicOverrideEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(advancedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(text_db_driver)
                     .addComponent(driverSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
+                    .addComponent(text_db_name)
                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(text_teststatus))
                 .addGap(16, 16, 16))
@@ -550,6 +559,16 @@ public class GameSetupDialogue extends javax.swing.JDialog {
         
         this.dispose();
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void rapidCheckboxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rapidCheckboxMouseEntered
+        this.dynamictext_rapidhelp.setLocation(evt.getLocationOnScreen());
+        this.dynamictext_rapidhelp.setVisible(true);
+        System.out.println("Mouse Entered Rapid Checkbox");
+    }//GEN-LAST:event_rapidCheckboxMouseEntered
+
+    private void rapidCheckboxMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rapidCheckboxMouseExited
+        this.dynamictext_rapidhelp.setVisible(false);
+    }//GEN-LAST:event_rapidCheckboxMouseExited
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox adminOverride;
@@ -561,13 +580,6 @@ public class GameSetupDialogue extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField gridDimensionField;
     private javax.swing.JLabel gridDimensionText;
     private javax.swing.JCheckBox incognitoCheckBox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator5;
@@ -584,13 +596,23 @@ public class GameSetupDialogue extends javax.swing.JDialog {
     private javax.swing.JButton testDBBtn;
     private javax.swing.JLabel text_advanced_hide;
     private javax.swing.JLabel text_advancedsettings;
+    private javax.swing.JLabel text_db_driver;
+    private javax.swing.JLabel text_db_name;
+    private javax.swing.JLabel text_db_password;
+    private javax.swing.JLabel text_db_port;
+    private javax.swing.JLabel text_db_url;
+    private javax.swing.JLabel text_db_username;
     private javax.swing.JLabel text_general_hide;
     private javax.swing.JLabel text_generalsettings;
+    private javax.swing.JLabel text_rapid_count;
     private javax.swing.JLabel text_rapiddelay;
     private javax.swing.JLabel text_teststatus;
     private javax.swing.JFormattedTextField urlField;
     private javax.swing.JCheckBox useConnection;
     private javax.swing.JFormattedTextField usernameField;
     // End of variables declaration//GEN-END:variables
-
+    
+    private JLabel dynamictext_rapidhelp;
+    private JLabel dynamictext_incognitohelp;
+    private JLabel dynamictext_statistichelp;
 }
